@@ -1,0 +1,23 @@
+.menuBtn {
+    -fx-padding: 15 25 15 25;
+    -fx-border-radius: 0,0,0,0;
+    -fx-background-radius: 0,0,0,0;
+    -fx-background-color: transparent;
+    -fx-text-fill: #bfbfbf;
+    -fx-background-size: 0,0;
+    -fx-border-width: 0;
+    -fx-border-style: none;
+
+}
+
+.menuBtn:hover {
+    -fx-background-color: #444db8;
+    -fx-border-radius: 0,0,0,0;
+    -fx-background-radius: 0,0,0,0;
+}
+
+.menuBtn:pressed {
+    -fx-background-color: #353b81;
+    -fx-border-radius: 0,0,0,0;
+    -fx-background-radius: 0,0,0,0;
+}
