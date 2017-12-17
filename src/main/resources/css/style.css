@@ -7,13 +7,13 @@
     -fx-background-size: 0,0;
     -fx-border-width: 0;
     -fx-border-style: none;
-
 }
 
 .menuBtn:hover {
-    -fx-background-color: #444db8;
+    -fx-background-color: #3f63b8;
     -fx-border-radius: 0,0,0,0;
     -fx-background-radius: 0,0,0,0;
+    -fx-background-insets: 0;
 }
 
 .menuBtn:pressed {
