@@ -21,3 +21,13 @@
     -fx-border-radius: 0,0,0,0;
     -fx-background-radius: 0,0,0,0;
 }
+
+
+.menuBtn:focused {
+     -fx-background-color: #0f8114;
+}
+
+.menuBtn:focused:hover {
+    -fx-background-color: #0fa015;
+
+}

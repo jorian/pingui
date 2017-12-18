@@ -14,33 +14,33 @@
     <top>
         <GridPane style="-fx-background-color: #354792" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" />
-                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES"/>
+                <ColumnConstraints hgrow="SOMETIMES"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" />
+                <RowConstraints minHeight="10.0"/>
             </rowConstraints>
-            <children>
-                <HBox minWidth="300" nodeOrientation="RIGHT_TO_LEFT" prefWidth="300.0" GridPane.columnIndex="1">
-                    <children>
-                        <Button mnemonicParsing="false" onAction="#changeScreen" fx:id="coinsBtn" styleClass="menuBtn" text="Coins" />
-                        <Button mnemonicParsing="false" onAction="#changeScreen" fx:id="tradeBtn" styleClass="menuBtn" text="Trade" />
-                        <Button mnemonicParsing="false" onAction="#changeScreen" fx:id="faqBtn" styleClass="menuBtn" text="FAQ" />
-                    </children>
-                    <GridPane.margin>
-                        <Insets left="15" right="20.0" />
-                    </GridPane.margin>
-                </HBox>
-                <Label depthTest="DISABLE" text="Pingui" textFill="orange">
-                        <padding>
-                            <Insets left="15.0" />
-                        </padding></Label>
+            <HBox minWidth="300" nodeOrientation="RIGHT_TO_LEFT" prefWidth="300.0" GridPane.columnIndex="1">
+                <GridPane.margin>
+                    <Insets left="15" right="20.0"/>
+                </GridPane.margin>
+                <Button mnemonicParsing="false" onAction="#changeScreen" fx:id="coinsBtn" styleClass="menuBtn"
+                        text="Coins"/>
+                <Button mnemonicParsing="false" onAction="#changeScreen" fx:id="tradeBtn" styleClass="menuBtn"
+                        text="Trade"/>
+                <Button mnemonicParsing="false" onAction="#changeScreen" fx:id="faqBtn" styleClass="menuBtn"
+                        text="FAQ"/>
+            </HBox>
+            <Label depthTest="DISABLE" text="Pingui" style="-fx-font: 20px Tahoma" textFill="orange">
+                <padding>
+                    <Insets left="15.0"/>
+                </padding>
+            </Label>
 
-            </children>
         </GridPane>
     </top>
    <center>
-      <AnchorPane fx:id="contentPane" minHeight="500.0" minWidth="800.0" BorderPane.alignment="CENTER" style="-fx-background-color: #d6d983">
+      <AnchorPane fx:id="contentPane" minHeight="500.0" minWidth="800.0" BorderPane.alignment="CENTER" style="-fx-background-color: #21234b">
       </AnchorPane>
    </center>
 </BorderPane>

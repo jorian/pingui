@@ -28,6 +28,7 @@ public class Main {
 
     public void changeScreen(Event e) throws IOException {
         String id = ((Control)e.getTarget()).getId();
+
         switch (id) {
             case "coinsBtn":
                 ContentController.setPane(ContentController.Pane.COINS);
