@@ -25,6 +25,8 @@ public class StageManager {
         s.getStylesheets().add("css/style.css"); // css for design
         primareStage.setScene(s);
         primareStage.show();
+
+        ContentController.setPane(ContentController.Pane.COINS);
     }
 
     public static Stage getStage() {return primaryStage; }

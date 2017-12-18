@@ -11,5 +11,4 @@
             fx:controller="controller.Content"
             fx:id="contentPane"
             prefHeight="400.0" prefWidth="600.0">
-
 </AnchorPane>

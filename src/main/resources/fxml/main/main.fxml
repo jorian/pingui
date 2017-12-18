@@ -40,7 +40,7 @@
         </GridPane>
     </top>
    <center>
-      <AnchorPane fx:id="contentPane" minHeight="500.0" minWidth="800.0" BorderPane.alignment="CENTER" style="-fx-background-color: #21234b">
+      <AnchorPane fx:id="contentPane" style="-fx-background-color: #21234b">
       </AnchorPane>
    </center>
 </BorderPane>
