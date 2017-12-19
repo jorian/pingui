@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ToggleButton?>
 <BorderPane focusTraversable="true" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Main">
     <top>
         <GridPane style="-fx-background-color: #354792" BorderPane.alignment="CENTER">
@@ -24,12 +25,12 @@
                 <GridPane.margin>
                     <Insets left="15" right="20.0"/>
                 </GridPane.margin>
-                <Button mnemonicParsing="false" onAction="#changeScreen" fx:id="coinsBtn" styleClass="menuBtn"
-                        text="Coins"/>
-                <Button mnemonicParsing="false" onAction="#changeScreen" fx:id="tradeBtn" styleClass="menuBtn"
-                        text="Trade"/>
-                <Button mnemonicParsing="false" onAction="#changeScreen" fx:id="faqBtn" styleClass="menuBtn"
-                        text="FAQ"/>
+                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="coinsBtn" styleClass="menuBtn"
+                              text="Coins" toggleGroup="$menu"/>
+                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="tradeBtn" styleClass="menuBtn"
+                              text="Trade" toggleGroup="$menu"/>
+                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="faqBtn" styleClass="menuBtn"
+                              text="FAQ" toggleGroup="$menu"/>
             </HBox>
             <Label depthTest="DISABLE" text="Pingui" style="-fx-font: 20px Tahoma" textFill="orange">
                 <padding>

@@ -101,9 +101,6 @@ public class Coins {
 
         System.out.println(response.toString());
 
-//        JsonElement gsonElement = new JsonParser().parse(response.toString());
-//        JsonObject jsonObject = gsonElement.getAsJsonObject();
-
         Orders orders = new Gson().fromJson(response.toString(), Orders.class);
 
         System.out.println(orders.asks.length);

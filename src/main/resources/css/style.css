@@ -33,7 +33,7 @@
 }
 
 .table-view {
-    -fx-background-color: white;
+    -fx-background-color: #353B81;
     -fx-table-cell-border-color: transparent;
 }
 
@@ -41,28 +41,36 @@
     /*fixes the table selection glow*/
     -fx-background-insets: 0, 0, 0;
     -fx-background-radius: 0, 0, 0;
-
 }
 
 .table-view .table-cell {
     -fx-font-size: 12;
     -fx-font-family: Monospaced;
-    -fx-border-color: transparent;
+    -fx-text-fill: #dbdbdb;
+    /*-fx-border-color: transparent;*/
+    -fx-background-color: transparent;
     -fx-table-cell-border-color:transparent;
 }
 
 .table-view .table-row-cell {
     -fx-cell-size: 18px;
     -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+.table-view .table-row-cell:odd {
+    -fx-cell-size: 18px;
+    -fx-border-width: 0;
+    -fx-background-color: #373d94;
 }
 
-.table-view .table-row-cell:filled:selected {
-    -fx-background: -fx-control-inner-background ;
-    -fx-background-color: -fx-table-cell-border-color, -fx-background ;
-    -fx-background-insets: 0, 0 0 0 0 ;
-    -fx-table-cell-border-color: derive(-fx-color, 5%);
-}
+/*.table-view .table-row-cell:filled:selected {*/
+    /*-fx-background: -fx-control-inner-background ;*/
+    /*-fx-background-color: -fx-table-cell-border-color, -fx-background ;*/
+    /*-fx-background-insets: 0, 0 0 0 0 ;*/
+    /*-fx-table-cell-border-color: derive(-fx-color, 5%);*/
+/*/*/
 .table-view .table-row-cell:odd:filled:selected {
     -fx-background: -fx-control-inner-background-alt ;
+
 }
 
