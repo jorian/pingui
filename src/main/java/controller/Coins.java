@@ -1,11 +1,13 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.sun.javafx.scene.control.skin.TableHeaderRow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -20,24 +22,47 @@ import java.util.Arrays;
 
 public class Coins {
 
-    @FXML private GridPane contentPane;
-    @FXML private TableView<Orders.Asks> orderbookAsks;
-    @FXML private TableView<Orders.Bids> orderbookBids;
-    @FXML private Button getOrderbookBtn;
+    @FXML
+    private GridPane contentPane;
+    @FXML
+    private TableView<Orders.Asks> orderbookAsks;
+    @FXML
+    private TableView<Orders.Bids> orderbookBids;
+    @FXML
+    private Button getOrderbookBtn;
+    @FXML
+    private TableColumn avgaskvolume;
+    @FXML
+    private TableColumn avgbidvolume;
 
-    public Coins () {
+
+    public Coins() {
 
     }
 
 
     public void initialize() {
-        AnchorPane.setTopAnchor(contentPane,0.0);
-        AnchorPane.setBottomAnchor(contentPane,0.0);
-        AnchorPane.setLeftAnchor(contentPane,0.0);
-        AnchorPane.setRightAnchor(contentPane,0.0);
+        AnchorPane.setTopAnchor(contentPane, 0.0);
+        AnchorPane.setBottomAnchor(contentPane, 0.0);
+        AnchorPane.setLeftAnchor(contentPane, 0.0);
+        AnchorPane.setRightAnchor(contentPane, 0.0);
 
         orderbookAsks.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         orderbookBids.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        orderbookBids.setSelectionModel(null);
+        orderbookAsks.setSelectionModel(null);
+
+
+        orderbookBids.widthProperty().addListener((source, oldWidth, newWidth) -> {
+            TableHeaderRow header = (TableHeaderRow) orderbookBids.lookup("TableHeaderRow");
+            header.reorderingProperty().addListener((observable, oldValue, newValue) -> header.setReordering(false));
+        });
+
+        orderbookAsks.widthProperty().addListener((source, oldWidth, newWidth) -> {
+            TableHeaderRow header = (TableHeaderRow) orderbookAsks.lookup("TableHeaderRow");
+            header.reorderingProperty().addListener((observable, oldValue, newValue) -> header.setReordering(false));
+        });
     }
 
     public void getOrderbook(Event e) throws Exception {
@@ -49,7 +74,7 @@ public class Coins {
         HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
 
         connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type","application/json");
+        connection.setRequestProperty("Content-Type", "application/json");
 
         String postJSONData = "{\"userpass\":\"fe63ebd14198df8207f3c8bf20a644cf4407afb961c5520610bbb02e2cde060a\",\"method\":\"orderbook\",\"base\":\"CHIPS\",\"rel\":\"KMD\"}";
 
@@ -92,6 +117,9 @@ public class Coins {
 
         orderbookBids.getItems().clear();
         orderbookBids.getItems().addAll(bidsList);
+
+        avgaskvolume.setText("Avg volume (" + orders.asks[0].coin + ")");
+        avgbidvolume.setText("Avg volume (" + orders.bids[0].coin + ")");
     }
 
     public static class Orders {

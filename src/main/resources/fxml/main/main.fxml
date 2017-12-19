@@ -40,7 +40,7 @@
         </GridPane>
     </top>
    <center>
-      <AnchorPane fx:id="contentPane" style="-fx-background-color: #21234b">
+      <AnchorPane fx:id="contentPane" style="-fx-background-color: #ababab">
       </AnchorPane>
    </center>
 </BorderPane>

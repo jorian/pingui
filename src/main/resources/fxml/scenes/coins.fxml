@@ -11,71 +11,60 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<GridPane fx:id="contentPane" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Coins">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="613.0" prefWidth="248.0" />
-        </content>
-      </ScrollPane>
-      <Button fx:id="getOrderbookBtn" onAction="#getOrderbook" mnemonicParsing="false" text="Get coins" />
-      <TableView fx:id="orderbookAsks" prefHeight="200.0" prefWidth="116.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-        <columns>
-          <TableColumn text="Coin">
-              <cellValueFactory>
-                  <PropertyValueFactory property="coin" />
-              </cellValueFactory>
-          </TableColumn>
-          <TableColumn text="Avg volume">
-              <cellValueFactory>
-                  <PropertyValueFactory property="avevolume"/>
-              </cellValueFactory>
-          </TableColumn>
-          <TableColumn text="Max volume">
-            <cellValueFactory>
-                <PropertyValueFactory property="maxvolume"/>
-            </cellValueFactory>
-          </TableColumn>
-          <TableColumn text="Price">
-            <cellValueFactory>
-                <PropertyValueFactory property="price"/>
-            </cellValueFactory>
-          </TableColumn>
-        </columns>
-      </TableView>
-       <TableView fx:id="orderbookBids" prefHeight="200.0" prefWidth="116.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
-           <columns>
-               <TableColumn text="Coin">
-                   <cellValueFactory>
-                       <PropertyValueFactory property="coin" />
-                   </cellValueFactory>
-               </TableColumn>
-               <TableColumn text="Avg volume">
-                   <cellValueFactory>
-                       <PropertyValueFactory property="avevolume"/>
-                   </cellValueFactory>
-               </TableColumn>
-               <TableColumn text="Max volume">
-                   <cellValueFactory>
-                       <PropertyValueFactory property="maxvolume"/>
-                   </cellValueFactory>
-               </TableColumn>
-               <TableColumn text="Price">
-                   <cellValueFactory>
-                       <PropertyValueFactory property="price"/>
-                   </cellValueFactory>
-               </TableColumn>
-           </columns>
-       </TableView>
-   </children>
+<GridPane fx:id="contentPane" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.121"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Coins">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <Button fx:id="getOrderbookBtn" onAction="#getOrderbook" mnemonicParsing="false" text="Get coins"/>
+        <TableView fx:id="orderbookAsks" prefHeight="200.0" prefWidth="116.0" GridPane.columnIndex="1"
+                   GridPane.rowIndex="1" >
+            <columns>
+                <TableColumn fx:id="avgaskvolume" text="Avg volume" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="avevolume"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Max volume" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="maxvolume"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Price" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="price"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+        <TableView fx:id="orderbookBids" prefHeight="200.0" prefWidth="116.0" GridPane.columnIndex="0"
+                   GridPane.rowIndex="1">
+            <columns>
+                <TableColumn fx:id="avgbidvolume" text="Avg volume" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="avevolume"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Max volume" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="maxvolume"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Price" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="price"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </children>
 </GridPane>
