@@ -21,7 +21,8 @@ import java.util.Arrays;
 public class Coins {
 
     @FXML private GridPane contentPane;
-    @FXML private TableView<Orders.Asks> orderbookTable;
+    @FXML private TableView<Orders.Asks> orderbookAsks;
+    @FXML private TableView<Orders.Bids> orderbookBids;
     @FXML private Button getOrderbookBtn;
 
     public Coins () {
@@ -35,7 +36,8 @@ public class Coins {
         AnchorPane.setLeftAnchor(contentPane,0.0);
         AnchorPane.setRightAnchor(contentPane,0.0);
 
-        orderbookTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        orderbookAsks.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        orderbookBids.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     public void getOrderbook(Event e) throws Exception {
@@ -83,8 +85,13 @@ public class Coins {
         System.out.println(orders.bids.length);
 
         ObservableList<Orders.Asks> asksList = FXCollections.observableList(Arrays.asList(orders.asks));
+        ObservableList<Orders.Bids> bidsList = FXCollections.observableList(Arrays.asList(orders.bids));
 
-        orderbookTable.getItems().addAll(asksList);
+        orderbookAsks.getItems().clear();
+        orderbookAsks.getItems().addAll(asksList);
+
+        orderbookBids.getItems().clear();
+        orderbookBids.getItems().addAll(bidsList);
     }
 
     public static class Orders {

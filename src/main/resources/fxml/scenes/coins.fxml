@@ -29,7 +29,7 @@
         </content>
       </ScrollPane>
       <Button fx:id="getOrderbookBtn" onAction="#getOrderbook" mnemonicParsing="false" text="Get coins" />
-      <TableView fx:id="orderbookTable" prefHeight="200.0" prefWidth="116.0" GridPane.rowIndex="1">
+      <TableView fx:id="orderbookAsks" prefHeight="200.0" prefWidth="116.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <columns>
           <TableColumn text="Coin">
               <cellValueFactory>
@@ -53,5 +53,29 @@
           </TableColumn>
         </columns>
       </TableView>
+       <TableView fx:id="orderbookBids" prefHeight="200.0" prefWidth="116.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+           <columns>
+               <TableColumn text="Coin">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="coin" />
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn text="Avg volume">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="avevolume"/>
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn text="Max volume">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="maxvolume"/>
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn text="Price">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="price"/>
+                   </cellValueFactory>
+               </TableColumn>
+           </columns>
+       </TableView>
    </children>
 </GridPane>

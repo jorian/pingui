@@ -31,3 +31,7 @@
     -fx-background-color: #0fa015;
 
 }
+
+.table-view {
+    -fx-background-color: grey;
+}
