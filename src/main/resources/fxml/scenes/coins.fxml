@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <GridPane fx:id="contentPane" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Coins">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -27,13 +28,29 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="613.0" prefWidth="248.0" />
         </content>
       </ScrollPane>
-      <Button mnemonicParsing="false" text="Get coins" />
+      <Button fx:id="getOrderbookBtn" onAction="#getOrderbook" mnemonicParsing="false" text="Get coins" />
       <TableView fx:id="orderbookTable" prefHeight="200.0" prefWidth="116.0" GridPane.rowIndex="1">
         <columns>
-          <TableColumn text="Coin" />
-          <TableColumn text="Avg volume" />
-          <TableColumn text="Max volume" />
-          <TableColumn text="Price" />
+          <TableColumn text="Coin">
+              <cellValueFactory>
+                  <PropertyValueFactory property="coin" />
+              </cellValueFactory>
+          </TableColumn>
+          <TableColumn text="Avg volume">
+              <cellValueFactory>
+                  <PropertyValueFactory property="avevolume"/>
+              </cellValueFactory>
+          </TableColumn>
+          <TableColumn text="Max volume">
+            <cellValueFactory>
+                <PropertyValueFactory property="maxvolume"/>
+            </cellValueFactory>
+          </TableColumn>
+          <TableColumn text="Price">
+            <cellValueFactory>
+                <PropertyValueFactory property="price"/>
+            </cellValueFactory>
+          </TableColumn>
         </columns>
       </TableView>
    </children>
