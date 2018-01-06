@@ -10,7 +10,8 @@ public class ContentController  {
 
     public enum Pane {
         COINS("/fxml/scenes/coins.fxml"),
-        TRADE("/fxml/scenes/trade.fxml");
+        TRADE("/fxml/scenes/trade.fxml"),
+        FAQ("/fxml/scenes/faq.fxml");
 
 
         private String resourceLocation;

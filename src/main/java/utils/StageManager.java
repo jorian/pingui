@@ -16,17 +16,17 @@ public class StageManager {
     public StageManager(Stage primareStage) throws IOException {
         StageManager.primaryStage = primareStage;
         primareStage.setTitle("Pingui");
-        primareStage.setMinWidth(1200);
-        primareStage.setMinHeight(900);
+        primareStage.setMinWidth(600);
+        primareStage.setMinHeight(450);
 
         Parent root = FXMLLoader.load(utils.ContentController.class.getResource("/fxml/main/main.fxml"));
 
-        Scene s = new Scene(root, 1920, 1080);
+        Scene s = new Scene(root, 1200, 650);
         s.getStylesheets().add("css/style.css"); // css for design
         primareStage.setScene(s);
         primareStage.show();
 
-        ContentController.setPane(ContentController.Pane.COINS);
+        ContentController.setPane(ContentController.Pane.TRADE);
     }
 
     public static Stage getStage() {return primaryStage; }

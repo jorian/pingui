@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <GridPane fx:id="contentPane" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.121"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Coins">
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FAQ">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
@@ -24,4 +29,5 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
 
     </rowConstraints>
+    <Label text="error : cant find a deposit that is close enough in size. make another deposit that is just a bit larger than what you want to trade"/>
 </GridPane>

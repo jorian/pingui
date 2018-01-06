@@ -6,9 +6,111 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.Trade"
-            prefHeight="400.0" prefWidth="600.0">
-<Label text="Trade screen"/>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.geometry.Insets?>
+<GridPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.Trade" fx:id="contentPane" prefHeight="400.0" prefWidth="600.0">
+    <padding>
+        <Insets topRightBottomLeft="5"/>
+    </padding>
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="25.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+
+    <children>
+        <TextField fx:id="baseCoin" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="relCoin" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Button fx:id="getOrderbookBtn" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#getOrderbook" mnemonicParsing="false" text="Get orders"/>
+        <TableView fx:id="orderbookBids"
+                   prefHeight="200.0" prefWidth="116.0"
+                   GridPane.columnIndex="0" GridPane.rowIndex="6"
+                   GridPane.columnSpan="2" GridPane.rowSpan="2">
+            <columns>
+                <TableColumn fx:id="avgbidvolume" text="Avg volume" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="avevolume"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Max volume" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="maxvolume"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Price" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="price"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+        <TableView fx:id="orderbookAsks" prefHeight="200.0" prefWidth="116.0" GridPane.columnIndex="2"
+                   GridPane.rowIndex="6" GridPane.columnSpan="2" GridPane.rowSpan="2">
+            <columns>
+                <TableColumn text="Price" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="price"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Max volume" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="maxvolume"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="avgaskvolume" text="Avg volume" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="avevolume"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+
+
+        <!--Buy-->
+        <Label text="Buy" GridPane.rowIndex="3" GridPane.columnIndex="4" textFill="#faaa00" style="-fx-font-size: 24" GridPane.valignment="BASELINE"/>
+
+        <Label text="Amount of base" GridPane.rowIndex="4" GridPane.columnIndex="4" textFill="white" GridPane.valignment="BASELINE"/>
+        <TextField GridPane.rowIndex="4" GridPane.columnIndex="5" GridPane.valignment="BASELINE"
+                   fx:id="buyAmount"
+        />
+
+        <Label text="Price in rel" GridPane.rowIndex="5" GridPane.columnIndex="4" textFill="white" GridPane.valignment="TOP"/>
+        <TextField
+                GridPane.rowIndex="5" GridPane.columnIndex="5" GridPane.valignment="BASELINE"
+                fx:id="buyPrice"
+        />
+
+        <Button
+                GridPane.columnIndex="5" GridPane.rowIndex="6" GridPane.valignment="BASELINE"
+                text="Buy"
+                onAction="#buyBtn"
+        />
+
+
+        <!--Sell-->
+        <Label text="Sell" GridPane.rowIndex="3" GridPane.columnIndex="7" textFill="#faaa00" style="-fx-font-size: 24" GridPane.valignment="BASELINE"/>
+
+        <Label text="Amount of base" GridPane.rowIndex="4" GridPane.columnIndex="7" textFill="white" GridPane.valignment="BASELINE"/>
+        <TextField GridPane.rowIndex="4" GridPane.columnIndex="8" GridPane.valignment="BASELINE"/>
+
+        <Label text="Price in rel" GridPane.rowIndex="5" GridPane.columnIndex="7" textFill="white" GridPane.valignment="BASELINE"/>
+        <TextField GridPane.rowIndex="5" GridPane.columnIndex="8" GridPane.valignment="BASELINE"/>
+    </children>
 </GridPane>
