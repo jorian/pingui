@@ -91,17 +91,20 @@
                    fx:id="buyAmount"
         />
 
-        <Label text="Price in rel" GridPane.rowIndex="5" GridPane.columnIndex="4" textFill="white" GridPane.valignment="TOP"/>
+        <Label text="Price in rel" GridPane.rowIndex="5" GridPane.columnIndex="4" textFill="white" GridPane.valignment="BASELINE"/>
         <TextField
                 GridPane.rowIndex="5" GridPane.columnIndex="5" GridPane.valignment="BASELINE"
                 fx:id="buyPrice"
         />
 
         <Button
-                GridPane.columnIndex="5" GridPane.rowIndex="6" GridPane.valignment="BASELINE"
+                GridPane.columnIndex="5" GridPane.rowIndex="7" GridPane.valignment="BASELINE"
                 text="Buy"
                 onAction="#buyBtn"
         />
+
+        <Label text="Total base" GridPane.rowIndex="6" GridPane.columnIndex="4" textFill="white" GridPane.valignment="BASELINE"/>
+        <Label fx:id="buyTotal" GridPane.rowIndex="6" GridPane.columnIndex="5" textFill="white" GridPane.valignment="BASELINE"/>
 
 
         <!--Sell-->
