@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.TextField?>
 <GridPane fx:id="contentPane" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.121"
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Coins">
     <columnConstraints>
@@ -26,26 +27,8 @@
     </rowConstraints>
     <children>
         <Button fx:id="getOrderbookBtn" onAction="#getOrderbook" mnemonicParsing="false" text="Get coins"/>
-        <TableView fx:id="orderbookAsks" prefHeight="200.0" prefWidth="116.0" GridPane.columnIndex="1"
-                   GridPane.rowIndex="1" >
-            <columns>
-                <TableColumn fx:id="avgaskvolume" text="Avg volume" sortable="false">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="avevolume"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn text="Max volume" sortable="false">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="maxvolume"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn text="Price" sortable="false">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="price"/>
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-        </TableView>
+        <TextField fx:id="baseCoin" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <TextField fx:id="relCoin" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
         <TableView fx:id="orderbookBids" prefHeight="200.0" prefWidth="116.0" GridPane.columnIndex="0"
                    GridPane.rowIndex="1">
             <columns>
@@ -62,6 +45,26 @@
                 <TableColumn text="Price" sortable="false">
                     <cellValueFactory>
                         <PropertyValueFactory property="price"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+        <TableView fx:id="orderbookAsks" prefHeight="200.0" prefWidth="116.0" GridPane.columnIndex="1"
+                   GridPane.rowIndex="1" >
+            <columns>
+                <TableColumn text="Price" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="price"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Max volume" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="maxvolume"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="avgaskvolume" text="Avg volume" sortable="false">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="avevolume"/>
                     </cellValueFactory>
                 </TableColumn>
             </columns>

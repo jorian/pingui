@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
@@ -22,23 +23,17 @@ import java.util.Arrays;
 
 public class Coins {
 
-    @FXML
-    private GridPane contentPane;
-    @FXML
-    private TableView<Orders.Asks> orderbookAsks;
-    @FXML
-    private TableView<Orders.Bids> orderbookBids;
-    @FXML
-    private Button getOrderbookBtn;
-    @FXML
-    private TableColumn avgaskvolume;
-    @FXML
-    private TableColumn avgbidvolume;
+    @FXML private GridPane contentPane;
+    @FXML private TableView<Orders.Asks> orderbookAsks;
+    @FXML private TableView<Orders.Bids> orderbookBids;
+    @FXML private Button getOrderbookBtn;
+    @FXML private TableColumn avgaskvolume;
+    @FXML private TableColumn avgbidvolume;
+    @FXML private TextField relCoin;
+    @FXML private TextField baseCoin;
 
 
-    public Coins() {
-
-    }
+    public Coins() { }
 
 
     public void initialize() {
@@ -66,7 +61,7 @@ public class Coins {
     }
 
     public void getOrderbook(Event e) throws Exception {
-        System.out.println(e.getEventType());
+        System.out.printf("Event type: %s", e.getEventType());
 
         String url = "http://127.0.0.1:7783";
 
@@ -76,7 +71,13 @@ public class Coins {
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json");
 
-        String postJSONData = "{\"userpass\":\"fe63ebd14198df8207f3c8bf20a644cf4407afb961c5520610bbb02e2cde060a\",\"method\":\"orderbook\",\"base\":\"CHIPS\",\"rel\":\"KMD\"}";
+        String base = baseCoin.getText();
+        String rel = relCoin.getText();
+
+//        String postJSONData = "{\"userpass\":\"fe63ebd14198df8207f3c8bf20a644cf4407afb961c5520610bbb02e2cde060a\",\"method\":\"orderbook\",\"base\":\"CHIPS\",\"rel\":\"KMD\"}";
+        String postJSONData = "{\"userpass\":\"423556bfd014ce25934b72d34060c79e25b1f60eaef1d0010e4c3fc809943b7e\",\"method\":\"orderbook\",\"base\":\"" + base + "\",\"rel\":\"" + rel + "\"}";
+
+
 
         connection.setDoOutput(true);
         DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
@@ -87,9 +88,7 @@ public class Coins {
 
         System.out.println(connection.getResponseCode());
 
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(connection.getInputStream())
-        );
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String output;
         StringBuilder response = new StringBuilder();
 
@@ -115,8 +114,10 @@ public class Coins {
         orderbookBids.getItems().clear();
         orderbookBids.getItems().addAll(bidsList);
 
-        avgaskvolume.setText("Avg volume (" + orders.asks[0].coin + ")");
-        avgbidvolume.setText("Avg volume (" + orders.bids[0].coin + ")");
+
+
+        avgaskvolume.setText("Avg volume (" + orders.bids[0].coin + ")");
+        avgbidvolume.setText("Avg volume (" + orders.asks[0].coin + ")");
     }
 
     public static class Orders {
