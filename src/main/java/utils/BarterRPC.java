@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class BarterRPC {
@@ -19,7 +18,8 @@ public class BarterRPC {
 
     public String orderbook(String base, String rel) throws IOException {
         String postJSONData = "{" +
-                "\"userpass\":\"423556bfd014ce25934b72d34060c79e25b1f60eaef1d0010e4c3fc809943b7e\"," +
+                "\"userpass\":\"fe63ebd14198df8207f3c8bf20a644cf4407afb961c5520610bbb02e2cde060a\"," +
+//                "\"userpass\":\"423556bfd014ce25934b72d34060c79e25b1f60eaef1d0010e4c3fc809943b7e\"," +
                 "\"method\":\"orderbook\"," +
                 "\"base\":\"" + base + "\"," +
                 "\"rel\":\"" + rel + "\"" +
@@ -30,7 +30,8 @@ public class BarterRPC {
 
     public String buy(String base, String rel, double relvolume, double price) throws IOException {
         String postJSONData = "{" +
-                "\"userpass\":\"423556bfd014ce25934b72d34060c79e25b1f60eaef1d0010e4c3fc809943b7e\"," +
+                "\"userpass\":\"fe63ebd14198df8207f3c8bf20a644cf4407afb961c5520610bbb02e2cde060a\"," +
+//                "\"userpass\":\"423556bfd014ce25934b72d34060c79e25b1f60eaef1d0010e4c3fc809943b7e\"," +
                 "\"method\":\"buy\"," +
                 "\"base\":\"" + base + "\"," +
                 "\"rel\":\"" + rel + "\"," +
