@@ -91,7 +91,7 @@
     -fx-border-color: white;
     -fx-border-width: 0 0 1.2 0; /* top, right, bottom, left */
     -fx-background-color: #b4b4b4;
-    -fx-padding: 0 2 0 2;
+    -fx-padding: 2 2 2 4;
     -fx-text-fill: white;
     -fx-border-radius: 0 0 0 0;
     -fx-background-radius: 0 0 0 0;
@@ -102,3 +102,22 @@
     -fx-border-color: #faaa00;
 }
 
+/*
+    BUTTON
+*/
+
+.button {
+    -fx-padding: 2 5 2 5;
+    -fx-border-radius: 0,0,0,0;
+    -fx-background-radius: 0,0,0,0;
+    -fx-background-color: #326464;
+    -fx-text-fill: #bfbfbf;
+    -fx-background-size: 0,0;
+    /*-fx-border-width: 0.6;*/
+    /*-fx-border-style: solid;*/
+    -fx-effect: dropshadow(one-pass-box, #8b8b8b,5,1.0,0,0);
+}
+
+.button:hover {
+    -fx-background-color: #469696;
+}
