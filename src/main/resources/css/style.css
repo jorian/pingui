@@ -10,26 +10,15 @@
 }
 
 .menuBtn:hover {
-    -fx-background-color: #598282;
+    -fx-background-color: #469696;
     -fx-border-radius: 0,0,0,0;
     -fx-background-radius: 0,0,0,0;
     -fx-background-insets: 0;
 }
 
-.menuBtn:pressed {
-    -fx-background-color: #295353;
-    -fx-border-radius: 0,0,0,0;
-    -fx-background-radius: 0,0,0,0;
-}
 
-
-.menuBtn:focused {
-     -fx-background-color: #0f8114;
-}
-
-.menuBtn:focused:hover {
-    -fx-background-color: #0fa015;
-
+.menuBtn:focused:selected {
+     -fx-background-color: #357171;
 }
 
 /*

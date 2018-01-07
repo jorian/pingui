@@ -87,7 +87,7 @@ public class Trade {
         String response = barterRPC.orderbook(baseCoin.getText(),relCoin.getText());
 
         // If something goes wrong with the request, the response will be empty.
-        if (!response.equals("")) {
+        if (!response.equals("") && !response.contains("error")) {
             Orders orders = new Gson().fromJson(response, Orders.class);
 
             System.out.println(orders.asks.length);
@@ -223,7 +223,7 @@ public class Trade {
         String response = barterRPC.buy(baseCoin.getText(),relCoin.getText(), Double.valueOf(buyAmount.getText()), Double.valueOf(buyPrice.getText()));
 
         // If something goes wrong with the request, the response will be empty.
-        if (!response.equals("")) {
+        if (!response.equals("") && !response.contains("error")) {
             JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
             if (jsonObject == null) {
                 System.out.println("json is NULL");
