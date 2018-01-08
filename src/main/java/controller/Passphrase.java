@@ -11,7 +11,9 @@ import utils.ContentController;
 import utils.SessionStorage;
 import utils.StageManager;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Passphrase {
 
@@ -36,18 +38,18 @@ public class Passphrase {
         StageManager.setRoot(root);
     }
 
-    public void login(Event e) throws IOException {
+    public void login(Event e) throws IOException, InterruptedException {
 
         SessionStorage sessionStorage = new SessionStorage();
 
         if (passphraseField.getText().isEmpty()) {
             passphraseField.setPromptText("No passphrase entered! Enter passphrase here");
-            passphraseField.setStyle("-fx-prompt-text-fill: #97433c");
+            passphraseField.setStyle("-fx-prompt-text-fill: #b9322f");
         } else {
 
             sessionStorage.setPassphrase(passphraseField.getText());
 
-//        startMarketmaker();
+            startMarketmaker();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main/main.fxml"));
             Parent root = loader.load();
@@ -61,10 +63,19 @@ public class Passphrase {
 
     }
 
-    private void startMarketmaker() throws IOException {
+    private void startMarketmaker() throws IOException, InterruptedException {
         String pass = SessionStorage.getPassphrase();
-        process = new ProcessBuilder("/home/n41r0j/pingui/src/main/resources/assets/marketmaker",
-                "{\"gui\":\"nogui\",\"client\":1, \"userhome\":\"/${HOME#/}\", \"passphrase\":\"" + SessionStorage.getPassphrase() + "\", \"coins\":$coins}").inheritIO().start();
+        process = new ProcessBuilder("/assets/marketmaker",
+                "{\"gui\":\"pingui\",\"client\":1, \"userhome\":\"" + System.getenv("HOME") + "/\", \"passphrase\":\"" + SessionStorage.getPassphrase() + "\", \"coins\":assets/coins.json}").start();
+//        System.out.println(process.waitFor());
 
+        BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+        String line;
+        while ((line = bri.readLine()) != null) {
+            System.out.println(line);
+        }
+
+        System.out.println(System.getenv("HOME"));
     }
 }
