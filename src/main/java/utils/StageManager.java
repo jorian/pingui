@@ -19,14 +19,15 @@ public class StageManager {
         primareStage.setMinWidth(600);
         primareStage.setMinHeight(450);
 
-        Parent root = FXMLLoader.load(utils.ContentController.class.getResource("/fxml/main/main.fxml"));
+        // Initial FXML:
+        Parent root = FXMLLoader.load(utils.ContentController.class.getResource("/fxml/main/passphrase.fxml"));
 
         Scene s = new Scene(root, 1200, 650);
         s.getStylesheets().add("css/style.css"); // css for design
         primareStage.setScene(s);
         primareStage.show();
 
-        ContentController.setPane(ContentController.Pane.TRADE);
+//        ContentController.setPane(ContentController.Pane.TRADE);
     }
 
     public static Stage getStage() {return primaryStage; }
