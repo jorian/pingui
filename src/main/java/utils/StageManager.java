@@ -20,21 +20,21 @@ public class StageManager {
         primareStage.setMinHeight(450);
 
         // Initial FXML:
-        Parent root = FXMLLoader.load(utils.ContentController.class.getResource("/fxml/main/passphrase.fxml"));
+        Parent root = FXMLLoader.load(utils.ContentController.class.getResource("/fxml/main/main.fxml"));
 
         Scene s = new Scene(root, 1200, 650);
         s.getStylesheets().add("css/style.css"); // css for design
         primareStage.setScene(s);
         primareStage.show();
 
-//        ContentController.setPane(ContentController.Pane.TRADE);
+        ContentController.setPane(ContentController.Pane.PASSPHRASE);
     }
 
     public static Stage getStage() {return primaryStage; }
 
-    static void setRoot(Parent root) {StageManager.primaryStage.getScene().setRoot(root);}
+    public static void setRoot(Parent root) {StageManager.primaryStage.getScene().setRoot(root);}
 
-    static void setPaneFragment(Parent root) {
+    public static void setPaneFragment(Parent root) {
         StageManager.pane.getChildren().setAll(root);
     }
 

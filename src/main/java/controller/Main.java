@@ -15,13 +15,26 @@ public class Main {
 
     @FXML private AnchorPane contentPane;
 
-    @FXML private ToggleButton coinsBtn;
-    @FXML private ToggleButton tradeBtn;
-    @FXML private ToggleButton faqBtn;
+    @FXML public ToggleButton coinsBtn;
+    @FXML public ToggleButton tradeBtn;
+    @FXML public ToggleButton faqBtn;
+    @FXML public ToggleButton logoutBtn;
     @FXML private ToggleGroup menu;
 
     public void initialize() {
+
         StageManager.setPane(contentPane);
+
+//        disableButtons(true);
+
+
+    }
+
+    public void disableButtons(boolean bool) {
+        coinsBtn.setDisable(bool);
+        tradeBtn.setDisable(bool);
+        faqBtn.setDisable(bool);
+        logoutBtn.setDisable(bool);
     }
 
     public void changeScreen(Event e) throws IOException {
@@ -47,6 +60,9 @@ public class Main {
                     ContentController.setPane(ContentController.Pane.FAQ);
                 faqBtn.setSelected(true);
                 break;
+            case "logoutBtn" :
+                logoutBtn.setSelected(true);
+                ContentController.setPane(ContentController.Pane.PASSPHRASE);
         }
     }
 }

@@ -11,7 +11,8 @@ public class ContentController  {
     public enum Pane {
         COINS("/fxml/scenes/coins.fxml"),
         TRADE("/fxml/scenes/trade.fxml"),
-        FAQ("/fxml/scenes/faq.fxml");
+        FAQ("/fxml/scenes/faq.fxml"),
+        PASSPHRASE("/fxml/scenes/passphrase.fxml");
 
 
         private String resourceLocation;
@@ -31,7 +32,7 @@ public class ContentController  {
 
     public static void setPane(Pane pane) throws IOException {
         currentPane = pane;
-        System.out.println("ContentController.setPane = " + pane.name());
+//        System.out.println("ContentController.setPane = " + pane.name());
         StageManager.setPaneFragment(FXMLLoader.load(ContentController.class.getResource(pane.getResourceLocation())));
     }
 

@@ -25,6 +25,8 @@
                 <GridPane.margin>
                     <Insets left="15" right="20.0"/>
                 </GridPane.margin>
+                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="logoutBtn" styleClass="menuBtn"
+                              text="Logout" toggleGroup="$menu"/>
                 <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="coinsBtn" styleClass="menuBtn"
                               text="Coins" toggleGroup="$menu"/>
                 <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="tradeBtn" styleClass="menuBtn"
