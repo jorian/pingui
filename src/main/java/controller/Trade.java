@@ -78,8 +78,8 @@ public class Trade {
         });
 
 
-        // DEBUG
-        baseCoin.appendText("CRYPTO");
+        // TODO DEBUG
+        baseCoin.appendText("CHIPS");
         relCoin.appendText("KMD");
     }
 
