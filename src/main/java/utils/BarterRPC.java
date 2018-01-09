@@ -7,31 +7,47 @@ import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.prefs.Preferences;
 
 public class BarterRPC {
     private URL url;
     private HttpURLConnection connection;
+    private String userpass = "";
+
+    public static BarterRPC barterRPC;
+    private Preferences prefs;
 
     public BarterRPC() throws Exception {
         url = new URL("http://127.0.0.1:7783");
+        prefs = Preferences.userRoot();
     }
 
     public String orderbook(String base, String rel) throws IOException {
+
         String postJSONData = "{" +
-                "\"userpass\":\"fe63ebd14198df8207f3c8bf20a644cf4407afb961c5520610bbb02e2cde060a\"," +
-//                "\"userpass\":\"423556bfd014ce25934b72d34060c79e25b1f60eaef1d0010e4c3fc809943b7e\"," +
+                "\"userpass\":\""+prefs.get("userpass", "")+"\"," +
                 "\"method\":\"orderbook\"," +
                 "\"base\":\"" + base + "\"," +
                 "\"rel\":\"" + rel + "\"" +
                 "}";
 
+        System.out.println("Method call: " + postJSONData);
+
+        return postRequest(postJSONData);
+    }
+
+    public String getCoin(String coin) {
+        String postJSONData = "{" +
+                "\"userpass\":\""+prefs.get("userpass", "")+"\"," +
+                "\"method\":\"getcoin\"," +
+                "\"coin\":\"CHIPS\"" +
+                "}";
         return postRequest(postJSONData);
     }
 
     public String buy(String base, String rel, double relvolume, double price) throws IOException {
         String postJSONData = "{" +
-                "\"userpass\":\"fe63ebd14198df8207f3c8bf20a644cf4407afb961c5520610bbb02e2cde060a\"," +
-//                "\"userpass\":\"423556bfd014ce25934b72d34060c79e25b1f60eaef1d0010e4c3fc809943b7e\"," +
+                "\"userpass\":\"" + userpass + "\"," +
                 "\"method\":\"buy\"," +
                 "\"base\":\"" + base + "\"," +
                 "\"rel\":\"" + rel + "\"," +
@@ -45,7 +61,7 @@ public class BarterRPC {
     }
 
 
-    private String postRequest(String postJSONData) {
+    public String postRequest(String postJSONData) {
 
         try {
             connection = (HttpURLConnection) url.openConnection();
@@ -53,6 +69,8 @@ public class BarterRPC {
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
+
+            System.out.println(postJSONData);
 
             DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
 
@@ -83,8 +101,13 @@ public class BarterRPC {
             System.err.println("Connection refused. marketmaker might not be running");
             return "";
         } catch (Exception e) {
-            System.err.println("General exception");
+            System.err.println("General exception: " + e.getMessage());
             return "";
         }
+    }
+
+    public void setUserpass(String userpass) {
+        prefs.put("userpass", userpass);
+        this.userpass = userpass;
     }
 }

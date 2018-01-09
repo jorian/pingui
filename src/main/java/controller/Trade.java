@@ -84,10 +84,12 @@ public class Trade {
     }
 
     public void getOrderbook(Event e) throws Exception {
-        String response = barterRPC.orderbook(baseCoin.getText(),relCoin.getText());
+        String response = barterRPC.getCoin(baseCoin.getText());
+//        String response = barterRPC.orderbook(baseCoin.getText(),relCoin.getText());
+        System.out.println(response);
 
         // If something goes wrong with the request, the response will be empty.
-        if (!response.equals("") && !response.contains("error")) {
+        if (!response.equals("") && !response.contains("error") && !response.contains("userpass")) {
             Orders orders = new Gson().fromJson(response, Orders.class);
 
             System.out.println(orders.asks.length);

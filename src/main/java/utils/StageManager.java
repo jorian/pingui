@@ -6,14 +6,16 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import static utils.BarterRPC.barterRPC;
 
 public class StageManager {
 
     private static Stage primaryStage;
     private static AnchorPane pane;
 
-    public StageManager(Stage primareStage) throws IOException {
+    public StageManager(Stage primareStage) throws Exception {
+        barterRPC =  new BarterRPC();
+
         StageManager.primaryStage = primareStage;
         primareStage.setTitle("Pingui");
         primareStage.setMinWidth(600);

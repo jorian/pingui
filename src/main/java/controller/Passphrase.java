@@ -1,5 +1,7 @@
 package controller;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,11 @@ import utils.StageManager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
+
+import static utils.BarterRPC.barterRPC;
 
 public class Passphrase {
 
@@ -38,7 +45,7 @@ public class Passphrase {
         StageManager.setRoot(root);
     }
 
-    public void login(Event e) throws IOException, InterruptedException {
+    public void login(Event e) throws Exception {
 
         SessionStorage sessionStorage = new SessionStorage();
 
@@ -63,19 +70,51 @@ public class Passphrase {
 
     }
 
-    private void startMarketmaker() throws IOException, InterruptedException {
-        String pass = SessionStorage.getPassphrase();
-        process = new ProcessBuilder("/assets/marketmaker",
-                "{\"gui\":\"pingui\",\"client\":1, \"userhome\":\"" + System.getenv("HOME") + "/\", \"passphrase\":\"" + SessionStorage.getPassphrase() + "\", \"coins\":assets/coins.json}").start();
-//        System.out.println(process.waitFor());
+    private void startMarketmaker() throws Exception {
+        String passphrase = SessionStorage.getPassphrase();
+
+        // Contents of coins file:
+        String coinsFileContent = new String(Files.readAllBytes(Paths.get("/home/n41r0j/pingui/src/main/resources/assets/coins.json")));
+        System.out.println(coinsFileContent);
+
+        String params = "{\"gui\":\"pingui\"," +
+                "\"client\":1," +
+                "\"userhome\":\"" + System.getenv("HOME") + "\"," +
+                "\"passphrase\":\""+ passphrase +"\"," +
+                "\"coins\":" + coinsFileContent + "}\r\n";
+
+        System.out.println("complete params: " + params);
+
+        // Starts marketmaker process:
+        process = new ProcessBuilder("/home/n41r0j/pingui/src/main/resources/assets/linux64/marketmaker", params)
+                .inheritIO().start();//        System.out.println(process.waitFor());
 
         BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
         String line;
         while ((line = bri.readLine()) != null) {
             System.out.println(line);
+            line = "";
         }
 
-        System.out.println(System.getenv("HOME"));
+        TimeUnit.SECONDS.sleep(5);
+
+        String postJSONData = "{" +
+                "\"userpass\":\"userpass\"," +
+                "\"method\":\"orderbook\"," +
+                "\"coin\":\"KMD\"" +
+                "}";
+        String response = barterRPC.postRequest(postJSONData);
+
+        if (!response.equals("") && !response.contains("error")) {
+            JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+            if (jsonObject == null) {
+                System.out.println("json is NULL");
+            } else {
+                String _userpass = jsonObject.get("userpass").getAsString();
+                System.out.println(_userpass);
+                barterRPC.setUserpass(_userpass);
+            }
+        }
     }
 }
