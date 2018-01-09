@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.concurrent.TimeUnit;
 
 import static utils.BarterRPC.barterRPC;
 
@@ -68,14 +67,15 @@ public class Passphrase {
         } else {
             sessionStorage.setPassphrase(passphraseField.getText());
 
-            startMarketmaker();
+            // TODO
+//            startMarketmaker();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main/main.fxml"));
             Parent root = loader.load();
             Main main = loader.getController();
 
             main.disableButtons(false);
-            ContentController.setPane(ContentController.Pane.TRADE);
+            ContentController.setPane(ContentController.Pane.EXCHANGE);
 
             StageManager.setRoot(root);
         }
@@ -97,9 +97,10 @@ public class Passphrase {
 
         System.out.println("complete params: " + params);
 
+        // TODO
         // Starts marketmaker process:
-        process = new ProcessBuilder("/home/n41r0j/pingui/src/main/resources/assets/linux64/marketmaker", params)
-                .inheritIO().start();//        System.out.println(process.waitFor());
+//        process = new ProcessBuilder("/home/n41r0j/pingui/src/main/resources/assets/linux64/marketmaker", params)
+//                .inheritIO().start();//        System.out.println(process.waitFor());
 
         BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -109,7 +110,8 @@ public class Passphrase {
             line = "";
         }
 
-        TimeUnit.SECONDS.sleep(5);
+        // TODO
+//        TimeUnit.SECONDS.sleep(5);
 
         String postJSONData = "{" +
                 "\"userpass\":\"userpass\"," +

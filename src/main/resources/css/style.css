@@ -121,3 +121,43 @@
 .button:hover {
     -fx-background-color: #469696;
 }
+
+/*ComboBox*/
+
+.combo-box-base {
+    -fx-background-color: #b4b4b4;
+    -fx-background-radius: 0 0 0 0;
+    -fx-border-radius: 0 0 0 0;
+    -fx-border-width: 0 0 1.2 0; /* top, right, bottom, left */
+    -fx-border-color: white;
+}
+
+.combo-box-base:hover {
+    -fx-background-color: #c8c8c8;
+}
+
+.combo-box-base:focused {
+    -fx-border-color: #faaa00;
+}
+
+.combo-box-base .list-cell:selected {
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #c8c8c8;
+}
+
+
+/*RadioButton*/
+.radio-button .radio {
+    -fx-padding: 3px;
+    -fx-border-radius: 1px;
+    -fx-background-insets: 0;
+}
+
+.radio-button .dot {
+    -fx-padding: 3px;
+    -fx-mark-color: #faaa00;
+    -fx-mark-highlight-color: transparent;
+}

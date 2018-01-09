@@ -27,12 +27,14 @@
                 </GridPane.margin>
                 <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="logoutBtn" styleClass="menuBtn"
                               text="Logout" toggleGroup="$menu"/>
-                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="coinsBtn" styleClass="menuBtn"
-                              text="Coins" toggleGroup="$menu"/>
-                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="tradeBtn" styleClass="menuBtn"
-                              text="Trade" toggleGroup="$menu"/>
                 <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="faqBtn" styleClass="menuBtn"
-                              text="FAQ" toggleGroup="$menu"/>
+                              text="FAQ" toggleGroup="menu"/>
+                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="coinsBtn" styleClass="menuBtn"
+                              text="Coins" toggleGroup="menu"/>
+                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="exchangeBtn" styleClass="menuBtn"
+                              text="Exchange" toggleGroup="menu"/>
+                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="tradeHistoryBtn" styleClass="menuBtn"
+                              text="Trade history" toggleGroup="menu"/>
             </HBox>
             <Label depthTest="DISABLE" text="Pingui" style="-fx-font: 20px Tahoma" textFill="#faaa00">
                 <padding>

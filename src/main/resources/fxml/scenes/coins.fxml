@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Button?>
 <GridPane fx:id="contentPane" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.121"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Coins">
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Coins"
+          vgap="4"
+          hgap="4">
+
+    <padding>
+        <Insets topRightBottomLeft="5"/>
+    </padding>
+
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="NEVER" minWidth="120.0" maxWidth="120.0"/>
+        <ColumnConstraints hgrow="NEVER" minWidth="120.0" maxWidth="120.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
@@ -22,6 +36,91 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-
     </rowConstraints>
+
+    <GridPane GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="3" GridPane.columnSpan="2"
+              style="-fx-background-color: #9e9e9e"
+              vgap="2"
+              hgap="2"
+    >
+        <padding>
+            <Insets topRightBottomLeft="6"/>
+        </padding>
+
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+
+
+        <ComboBox minWidth="230">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="CHIPS"/>
+                    <String fx:value="BCH"/>
+                    <String fx:value="HUSH"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2">
+            <RadioButton  fx:id="radioElectrum" selected="true" text="Electrum">
+                <padding>
+                    <Insets top="3" right="4"/>
+                </padding>
+                <toggleGroup>
+                    <ToggleGroup fx:id="toggleGroup"/>
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton toggleGroup="$toggleGroup" fx:id="radioNative" text="Native">
+                <padding>
+                    <Insets top="3" left="4" right="1"/>
+                </padding>
+            </RadioButton>
+            <Region HBox.hgrow="ALWAYS"></Region>
+            <Button text="Enable"/>
+
+        </HBox>
+
+
+    </GridPane>
+
+    <GridPane GridPane.rowIndex="0" GridPane.columnIndex="2" GridPane.rowSpan="3" GridPane.columnSpan="2"
+              style="-fx-background-color: #9e9e9e"
+              vgap="2"
+              hgap="2"
+    >
+        <padding>
+            <Insets topRightBottomLeft="6"/>
+        </padding>
+
+
+    </GridPane>
+
+    <GridPane GridPane.rowIndex="0" GridPane.columnIndex="4" GridPane.rowSpan="3" GridPane.columnSpan="2"
+              style="-fx-background-color: #9e9e9e"
+              vgap="2"
+              hgap="2"
+    >
+        <padding>
+            <Insets topRightBottomLeft="6"/>
+        </padding>
+
+
+    </GridPane>
+
+    <GridPane GridPane.rowIndex="0" GridPane.columnIndex="6" GridPane.rowSpan="3" GridPane.columnSpan="2"
+              style="-fx-background-color: #9e9e9e"
+              vgap="2"
+              hgap="2"
+    >
+        <padding>
+            <Insets topRightBottomLeft="6"/>
+        </padding>
+
+
+    </GridPane>
+
 </GridPane>
