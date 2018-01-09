@@ -49,6 +49,9 @@ public class Trade {
         orderbookBids.setSelectionModel(null);
         orderbookAsks.setSelectionModel(null);
 
+        orderbookAsks.setPlaceholder(new Label("No asks available"));
+        orderbookBids.setPlaceholder(new Label("No bids available"));
+
 
         orderbookBids.widthProperty().addListener((source, oldWidth, newWidth) -> {
             TableHeaderRow header = (TableHeaderRow) orderbookBids.lookup("TableHeaderRow");
@@ -84,8 +87,8 @@ public class Trade {
     }
 
     public void getOrderbook(Event e) throws Exception {
-        String response = barterRPC.getCoin(baseCoin.getText());
-//        String response = barterRPC.orderbook(baseCoin.getText(),relCoin.getText());
+//        String response = barterRPC.getCoin(baseCoin.getText());
+        String response = barterRPC.orderbook(baseCoin.getText(),relCoin.getText());
         System.out.println(response);
 
         // If something goes wrong with the request, the response will be empty.
@@ -104,8 +107,11 @@ public class Trade {
             orderbookBids.getItems().clear();
             orderbookBids.getItems().addAll(bidsList);
 
-            avgaskvolume.setText("Avg volume (" + orders.bids[0].coin + ")");
-            avgbidvolume.setText("Avg volume (" + orders.asks[0].coin + ")");
+
+            if (orders.bids.length > 0)
+                avgaskvolume.setText("Avg volume (" + orders.bids[0].coin + ")");
+            if (orders.asks.length > 0)
+                avgbidvolume.setText("Avg volume (" + orders.asks[0].coin + ")");
         }
     }
 

@@ -88,7 +88,7 @@
             <Label text="Buy" GridPane.rowIndex="0" GridPane.columnIndex="0" textFill="#faaa00"
                    style="-fx-font-size: 24" GridPane.valignment="BASELINE"/>
 
-            <Label text="Amount of base" GridPane.rowIndex="1" GridPane.columnIndex="0" textFill="white"
+            <Label text="Relvolume" GridPane.rowIndex="1" GridPane.columnIndex="0" textFill="white"
                    GridPane.valignment="BASELINE"/>
             <TextField GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.valignment="BASELINE"
                        fx:id="buyAmount" maxWidth="120" minWidth="100" promptText="0.00"
@@ -121,7 +121,7 @@
             <Label text="Sell" GridPane.rowIndex="0" GridPane.columnIndex="3" textFill="#faaa00"
                    style="-fx-font-size: 24" GridPane.valignment="BASELINE"/>
 
-            <Label text="Amount of base" GridPane.rowIndex="1" GridPane.columnIndex="3" textFill="white"
+            <Label text="Relvolume" GridPane.rowIndex="1" GridPane.columnIndex="3" textFill="white"
                    GridPane.valignment="BASELINE"/>
             <TextField GridPane.rowIndex="1" GridPane.columnIndex="4" GridPane.valignment="BASELINE"
                        maxWidth="120" minWidth="100" promptText="0.00"

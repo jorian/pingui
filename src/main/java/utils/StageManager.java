@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 import static utils.BarterRPC.barterRPC;
 
 public class StageManager {
@@ -28,6 +30,14 @@ public class StageManager {
         s.getStylesheets().add("css/style.css"); // css for design
         primareStage.setScene(s);
         primareStage.show();
+
+        primareStage.setOnCloseRequest(windowEvent -> {
+            try {
+                Runtime.getRuntime().exec("pkill -15 marketmaker");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         ContentController.setPane(ContentController.Pane.PASSPHRASE);
     }

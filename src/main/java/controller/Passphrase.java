@@ -2,11 +2,12 @@ package controller;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import utils.ContentController;
@@ -28,13 +29,23 @@ public class Passphrase {
 
     @FXML private GridPane contentPane;
     @FXML private TextField passphraseField;
+    @FXML private Label loadingLabel;
 
     public void initialize() throws IOException {
-
         AnchorPane.setRightAnchor(contentPane,0.0);
         AnchorPane.setLeftAnchor(contentPane,0.0);
         AnchorPane.setTopAnchor(contentPane,0.0);
         AnchorPane.setBottomAnchor(contentPane,0.0);
+
+        passphraseField.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                try {
+                    login();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main/main.fxml"));
         Parent root = loader.load();
@@ -45,15 +56,16 @@ public class Passphrase {
         StageManager.setRoot(root);
     }
 
-    public void login(Event e) throws Exception {
+    public void login() throws Exception {
+
+        loadingLabel.setManaged(true);
 
         SessionStorage sessionStorage = new SessionStorage();
 
         if (passphraseField.getText().isEmpty()) {
             passphraseField.setPromptText("No passphrase entered! Enter passphrase here");
-            passphraseField.setStyle("-fx-prompt-text-fill: #b9322f");
+            passphraseField.setStyle("-fx-prompt-text-fill: #d7d5d2");
         } else {
-
             sessionStorage.setPassphrase(passphraseField.getText());
 
             startMarketmaker();

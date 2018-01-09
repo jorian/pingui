@@ -40,7 +40,7 @@ public class BarterRPC {
         String postJSONData = "{" +
                 "\"userpass\":\""+prefs.get("userpass", "")+"\"," +
                 "\"method\":\"getcoin\"," +
-                "\"coin\":\"CHIPS\"" +
+                "\"coin\":\""+ coin + "\"" +
                 "}";
         return postRequest(postJSONData);
     }
