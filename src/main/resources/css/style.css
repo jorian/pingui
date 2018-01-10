@@ -144,10 +144,17 @@
     -fx-text-fill: white;
 }
 
+.combo-box-base .list-cell:hover {
+    -fx-text-fill: #faaa00;
+}
+
 .combo-box-popup .list-cell {
     -fx-background-color: #c8c8c8;
 }
 
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: white;
+}
 
 /*RadioButton*/
 .radio-button .radio {
