@@ -10,7 +10,8 @@
 <?import javafx.collections.FXCollections?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1"
           vgap="4"
-          hgap="4">
+          hgap="4"
+          style="-fx-background-color: #919191">
 
     <padding>
         <Insets topRightBottomLeft="5"/>

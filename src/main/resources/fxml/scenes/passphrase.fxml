@@ -7,7 +7,7 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controller.Passphrase"
             fx:id="contentPane"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #919191">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
