@@ -26,15 +26,15 @@
                     <Insets left="15" right="20.0"/>
                 </GridPane.margin>
                 <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="logoutBtn" styleClass="menuBtn"
-                              text="Logout" toggleGroup="$menu"/>
+                              text="Logout" />
                 <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="faqBtn" styleClass="menuBtn"
-                              text="FAQ" toggleGroup="menu"/>
+                              text="FAQ" />
                 <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="coinsBtn" styleClass="menuBtn"
-                              text="Coins" toggleGroup="menu"/>
+                              text="Coins"/>
                 <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="exchangeBtn" styleClass="menuBtn"
-                              text="Exchange" toggleGroup="menu"/>
+                              text="Exchange" />
                 <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="tradeHistoryBtn" styleClass="menuBtn"
-                              text="Trade history" toggleGroup="menu"/>
+                              text="Trade history"/>
             </HBox>
             <Label depthTest="DISABLE" text="Pingui" style="-fx-font: 20px Tahoma" textFill="#faaa00">
                 <padding>
@@ -45,7 +45,7 @@
         </GridPane>
     </top>
    <center>
-      <AnchorPane fx:id="contentPane" style="-fx-background-color: #919191">
-      </AnchorPane>
+      <BorderPane fx:id="contentPane" style="-fx-background-color: #919191">
+      </BorderPane>
    </center>
 </BorderPane>

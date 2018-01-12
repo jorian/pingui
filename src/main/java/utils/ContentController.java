@@ -34,7 +34,11 @@ public class ContentController  {
     public static void setPane(Pane pane) throws IOException {
         currentPane = pane;
 //        System.out.println("ContentController.setPane = " + pane.name());
+
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(pane.getResourceLocation()))
+
         StageManager.setPaneFragment(FXMLLoader.load(ContentController.class.getResource(pane.getResourceLocation())));
+
     }
 
     public static Pane getPane() {

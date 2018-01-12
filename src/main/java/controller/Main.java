@@ -2,18 +2,18 @@ package controller;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Control;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import utils.ContentController;
-import utils.StageManager;
 
 import java.io.IOException;
 
 public class Main {
 
-    @FXML private AnchorPane contentPane;
+    @FXML private BorderPane contentPane;
 
     @FXML public ToggleButton coinsBtn;
     @FXML public ToggleButton exchangeBtn;
@@ -22,11 +22,16 @@ public class Main {
     @FXML public ToggleButton tradeHistoryBtn;
     @FXML private ToggleGroup menu;
 
+
+    private Coins coinsController = new Coins();
+
     public void initialize() {
 
-        StageManager.setPane(contentPane);
+
+        loadScreen(ContentController.Pane.COINS.getResourceLocation(),coinsController);
 
 //        disableButtons(true);
+
 
 
     }
@@ -48,9 +53,12 @@ public class Main {
 
         switch (id) {
             case "coinsBtn":
-                if (!ContentController.getPane().equals(ContentController.Pane.COINS))
-                    ContentController.setPane(ContentController.Pane.COINS);
-                coinsBtn.setSelected(true);
+                if (!ContentController.getPane().equals(ContentController.Pane.COINS)) {
+                    //ContentController.setPane(ContentController.Pane.COINS);
+                    loadScreen(ContentController.Pane.COINS.getResourceLocation(),coinsController);
+
+                    coinsBtn.setSelected(true);
+                }
                 break;
             case "exchangeBtn":
                 if (!ContentController.getPane().equals(ContentController.Pane.EXCHANGE))
@@ -71,6 +79,18 @@ public class Main {
                 ContentController.setPane(ContentController.Pane.TRADEHISTORY);
             faqBtn.setSelected(true);
             break;
+        }
+    }
+
+    private void loadScreen(String resource, Object controller) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
+            loader.setController(controller);
+            contentPane.setCenter(loader.load());
+
+        } catch (IOException exc) {
+            exc.printStackTrace();
+            contentPane.setCenter(null);
         }
     }
 }
