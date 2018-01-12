@@ -23,6 +23,10 @@
     -fx-background-insets: 0 0 0 0;
 }
 
+.menuBtn:selected {
+    -fx-background-color: #357171;
+}
+
 /*
     GLOBAL TABLE
  */
