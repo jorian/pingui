@@ -2,6 +2,7 @@ package controller;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
 
 import static utils.BarterRPC.barterRPC;
 
@@ -57,7 +59,15 @@ public class Passphrase {
 
     public void login() throws Exception {
 
-        loadingLabel.setManaged(true);
+        Task task = new Task<Void>() {
+            @Override public Void call() {
+
+                System.out.println("loading label visible called");
+                return null;
+            }
+        };
+
+        new Thread(task).start();
 
         SessionStorage sessionStorage = new SessionStorage();
 
@@ -68,7 +78,16 @@ public class Passphrase {
             sessionStorage.setPassphrase(passphraseField.getText());
 
             // TODO
+            Task taskMarketMaker = new Task() {
+                @Override
+                protected Object call() throws Exception {
+                    startMarketmaker();
+                    return null;
+                }
+            };
 //            startMarketmaker();
+
+            new Thread(taskMarketMaker).start();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main/main.fxml"));
             Parent root = loader.load();
@@ -98,9 +117,9 @@ public class Passphrase {
         System.out.println("complete params: " + params);
 
         // TODO
-        // Starts marketmaker process:
-//        process = new ProcessBuilder("/home/n41r0j/pingui/src/main/resources/assets/linux64/marketmaker", params)
-//                .inheritIO().start();//        System.out.println(process.waitFor());
+//         Starts marketmaker process:
+        process = new ProcessBuilder("/home/n41r0j/pingui/src/main/resources/assets/linux64/marketmaker", params)
+                .inheritIO().start();//        System.out.println(process.waitFor());
 
         BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -111,7 +130,7 @@ public class Passphrase {
         }
 
         // TODO
-//        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(5);
 
         String postJSONData = "{" +
                 "\"userpass\":\"userpass\"," +

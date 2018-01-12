@@ -34,6 +34,7 @@ public class StageManager {
         primareStage.setOnCloseRequest(windowEvent -> {
             try {
                 Runtime.getRuntime().exec("pkill -15 marketmaker");
+                System.out.println("marketmaker killed");
             } catch (IOException e) {
                 e.printStackTrace();
             }
