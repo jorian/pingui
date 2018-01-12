@@ -3,8 +3,6 @@ package controller;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -24,6 +22,7 @@ import static utils.BarterRPC.barterRPC;
 public class Passphrase {
 
     public static Process process;
+    public Main mainController;
 
     @FXML private GridPane contentPane;
     @FXML private TextField passphraseField;
@@ -44,6 +43,10 @@ public class Passphrase {
                 }
             }
         });
+    }
+
+    public void setMain(Main main) {
+        mainController = main;
     }
 
     public void login() throws Exception {
@@ -67,13 +70,11 @@ public class Passphrase {
 
 //            new Thread(taskMarketMaker).start();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main/main.fxml"));
-            Parent root = loader.load();
-            Main main = loader.getController();
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main/main.fxml"));
+//            Parent root = loader.load();
 
-            main.menuToggle.selectToggle(main.coinsBtn);
-            main.disableButtons(false);
-
+            mainController.menuToggle.selectToggle(mainController.coinsBtn);
+            mainController.disableButtons();
         }
 
     }

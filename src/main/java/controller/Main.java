@@ -39,7 +39,7 @@ public class Main {
         menuToggle.getToggles().forEach(toggle -> {
             ((RadioButton) toggle).getStyleClass().remove("radio-button");
             ((RadioButton) toggle).getStyleClass().add("toggle-button");
-            ((RadioButton) toggle).setDisable(false);
+            ((RadioButton) toggle).setDisable(true);
         });
 
         menuToggle.selectedToggleProperty().addListener((observableValue, oldToggle, newToggle) -> {
@@ -86,6 +86,7 @@ public class Main {
             FXMLLoader passphraseLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/passphrase.fxml"));
             passphrase = passphraseLoader.load();
             passphraseController = passphraseLoader.getController();
+            passphraseController.setMain(this);
 
             FXMLLoader tradeHistoryLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/tradeHistory.fxml"));
             tradeHistory = tradeHistoryLoader.load();
@@ -98,9 +99,9 @@ public class Main {
 
     }
 
-    void disableButtons(boolean bool) {
+    void disableButtons() {
         menuToggle.getToggles().forEach(toggle -> {
-            ((RadioButton) toggle).setDisable(bool);
+            ((RadioButton) toggle).setDisable(false);
         });
     }
 }
