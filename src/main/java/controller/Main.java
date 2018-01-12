@@ -16,6 +16,9 @@ public class Main {
 
     private Coins coinsController;
     private Trade tradeController;
+    private FAQ faqController;
+    private Passphrase passphraseController;
+    private TradeHistory tradeHistoryController;
 
     @FXML public RadioButton coinsBtn;
     @FXML public RadioButton exchangeBtn;
@@ -26,6 +29,9 @@ public class Main {
 
     private Parent coins;
     private Parent trade;
+    private Parent passphrase;
+    private Parent faq;
+    private Parent tradeHistory;
 
     public void initialize() {
         fxmlSetup();
@@ -33,6 +39,7 @@ public class Main {
         menuToggle.getToggles().forEach(toggle -> {
             ((RadioButton) toggle).getStyleClass().remove("radio-button");
             ((RadioButton) toggle).getStyleClass().add("toggle-button");
+            ((RadioButton) toggle).setDisable(false);
         });
 
         menuToggle.selectedToggleProperty().addListener((observableValue, oldToggle, newToggle) -> {
@@ -40,33 +47,60 @@ public class Main {
 
             switch (tb.getId()) {
                 case "coinsBtn":
-                    //changeScreen("/main/java/resources/fxml/coins.fxml", coinsController);
                     rootPane.setCenter(coins);
                     break;
                 case "exchangeBtn":
-                    //changeScreen("/main/java/resources/fxml/trade.fxml", tradeController);
                     rootPane.setCenter(trade);
+                    break;
+                case "faqBtn":
+                    rootPane.setCenter(faq);
+                    break;
+                case "logoutBtn":
+                    rootPane.setCenter(passphrase);
+                    break;
+                case "tradeHistoryBtn":
+                    rootPane.setCenter(tradeHistory);
                     break;
             }
         });
 
+
+        rootPane.setCenter(passphrase);
     }
 
     private void fxmlSetup() {
 
         try {
-            FXMLLoader coinsLoader = new FXMLLoader(getClass().getResource("/main/java/resources/fxml/coins.fxml"));
+            FXMLLoader coinsLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/coins.fxml"));
             coins = coinsLoader.load();
             coinsController = coinsLoader.getController();
 
-            FXMLLoader tradeLoader = new FXMLLoader(getClass().getResource("/main/java/resources/fxml/trade.fxml"));
+            FXMLLoader tradeLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/trade.fxml"));
             trade = tradeLoader.load();
             tradeController = tradeLoader.getController();
+
+            FXMLLoader faqLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/faq.fxml"));
+            faq = faqLoader.load();
+            faqController = faqLoader.getController();
+
+            FXMLLoader passphraseLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/passphrase.fxml"));
+            passphrase = passphraseLoader.load();
+            passphraseController = passphraseLoader.getController();
+
+            FXMLLoader tradeHistoryLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/tradeHistory.fxml"));
+            tradeHistory = tradeHistoryLoader.load();
+            tradeHistoryController = tradeHistoryLoader.getController();
 
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    void disableButtons(boolean bool) {
+        menuToggle.getToggles().forEach(toggle -> {
+            ((RadioButton) toggle).setDisable(bool);
+        });
     }
 }

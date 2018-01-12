@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.RadioButton?>
-<BorderPane fx:controller="main.java.controller.Main" fx:id="rootPane"
+<BorderPane fx:controller="controller.Main" fx:id="rootPane"
             xmlns:fx="http://javafx.com/fxml">
 
     <top>

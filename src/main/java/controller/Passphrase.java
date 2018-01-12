@@ -2,7 +2,6 @@ package controller;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,9 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import utils.ContentController;
 import utils.SessionStorage;
-import utils.StageManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,27 +44,9 @@ public class Passphrase {
                 }
             }
         });
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main/main.fxml"));
-        Parent root = loader.load();
-        Main main = loader.getController();
-
-        main.disableButtons(true);
-
-        StageManager.setRoot(root);
     }
 
     public void login() throws Exception {
-
-        Task task = new Task<Void>() {
-            @Override public Void call() {
-
-                System.out.println("loading label visible called");
-                return null;
-            }
-        };
-
-        new Thread(task).start();
 
         SessionStorage sessionStorage = new SessionStorage();
 
@@ -78,25 +57,23 @@ public class Passphrase {
             sessionStorage.setPassphrase(passphraseField.getText());
 
             // TODO
-            Task taskMarketMaker = new Task() {
-                @Override
-                protected Object call() throws Exception {
-                    startMarketmaker();
-                    return null;
-                }
-            };
-//            startMarketmaker();
+//            Task taskMarketMaker = new Task() {
+//                @Override
+//                protected Object call() throws Exception {
+//                    startMarketmaker();
+//                    return null;
+//                }
+//            };
 
-            new Thread(taskMarketMaker).start();
+//            new Thread(taskMarketMaker).start();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main/main.fxml"));
             Parent root = loader.load();
             Main main = loader.getController();
 
+            main.menuToggle.selectToggle(main.coinsBtn);
             main.disableButtons(false);
-            ContentController.setPane(ContentController.Pane.EXCHANGE);
 
-            StageManager.setRoot(root);
         }
 
     }
