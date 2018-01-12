@@ -6,10 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.shape.Line?>
-<GridPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="controller.Trade"
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<GridPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx"
           fx:id="contentPane"
           prefHeight="400.0" prefWidth="600.0"
           vgap="4"
@@ -49,14 +48,15 @@
                   hgap="2"
         >
             <padding>
-            <Insets topRightBottomLeft="6"/>
+                <Insets topRightBottomLeft="6"/>
             </padding>
 
             <TextField fx:id="baseCoin" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
             <TextField fx:id="relCoin" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <Button fx:id="getOrderbookBtn" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#getOrderbook"
+            <Button fx:id="getOrderbookBtn" GridPane.columnIndex="2" GridPane.rowIndex="1"
                     mnemonicParsing="false" text="Get orders"/>
         </GridPane>
+        <!--onAction="#getOrderbook"-->
 
         <GridPane GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.rowSpan="3" GridPane.columnSpan="6"
                   style="-fx-background-color: #9e9e9e"
@@ -110,9 +110,9 @@
 
             <Button
                     GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BASELINE"
-                    text="Buy"
-                    onAction="#buyBtn"
-            />
+                    text="Buy"/>
+                    <!--onAction="#buyBtn"-->
+
 
             <!--<Separator orientation="VERTICAL" halignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="5"/>-->
 
@@ -155,13 +155,13 @@
             <Label text="Orderbook CHIPS/KMD" GridPane.rowIndex="0" GridPane.columnIndex="0" textFill="#faaa00"
                    style="-fx-font-size: 16">
 
-                    <padding>
-                        <Insets left="5"/>
-                    </padding>
+                <padding>
+                    <Insets left="5"/>
+                </padding>
             </Label>
 
             <TableView fx:id="orderbookBids" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                 <!--GridPane.vgrow="ALWAYS" >-->
+                <!--GridPane.vgrow="ALWAYS" >-->
                 <!--Vgrow always to let the table 'fill' the whole gridpane surface-->
 
                 <columns>
@@ -207,75 +207,75 @@
         </GridPane>
 
         <!--<GridPane GridPane.rowIndex="3" GridPane.columnIndex="6" GridPane.rowSpan="3" GridPane.columnSpan="3"-->
-                  <!--style="-fx-background-color: #9e9e9e"-->
-                  <!--vgap="2"-->
-                  <!--hgap="2"-->
+        <!--style="-fx-background-color: #9e9e9e"-->
+        <!--vgap="2"-->
+        <!--hgap="2"-->
         <!--&gt;-->
 
-            <!--<padding>-->
-                <!--<Insets topRightBottomLeft="6"/>-->
-            <!--</padding>-->
+        <!--<padding>-->
+        <!--<Insets topRightBottomLeft="6"/>-->
+        <!--</padding>-->
 
-            <!--<columnConstraints>-->
-                <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>-->
-                <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>-->
-                <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0"/>-->
-                <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>-->
-                <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>-->
-            <!--</columnConstraints>-->
+        <!--<columnConstraints>-->
+        <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>-->
+        <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>-->
+        <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0"/>-->
+        <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>-->
+        <!--<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0"/>-->
+        <!--</columnConstraints>-->
 
-            <!--<rowConstraints>-->
-                <!--<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>-->
-                <!--<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>-->
-                <!--<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>-->
-                <!--<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>-->
-                <!--<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>-->
-            <!--</rowConstraints>-->
+        <!--<rowConstraints>-->
+        <!--<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>-->
+        <!--<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>-->
+        <!--<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>-->
+        <!--<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>-->
+        <!--<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>-->
+        <!--</rowConstraints>-->
 
-            <!--&lt;!&ndash;Buy&ndash;&gt;-->
-            <!--<Label text="Buy" GridPane.rowIndex="0" GridPane.columnIndex="0" textFill="#faaa00"-->
-                   <!--style="-fx-font-size: 24" GridPane.valignment="BASELINE"/>-->
+        <!--&lt;!&ndash;Buy&ndash;&gt;-->
+        <!--<Label text="Buy" GridPane.rowIndex="0" GridPane.columnIndex="0" textFill="#faaa00"-->
+        <!--style="-fx-font-size: 24" GridPane.valignment="BASELINE"/>-->
 
-            <!--<Label text="Amount of base" GridPane.rowIndex="1" GridPane.columnIndex="0" textFill="white"-->
-                   <!--GridPane.valignment="BASELINE"/>-->
-            <!--<TextField GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.valignment="BASELINE"-->
-                       <!--fx:id="buyAmount" maxWidth="120" minWidth="120" promptText="0.00"-->
-            <!--/>-->
+        <!--<Label text="Amount of base" GridPane.rowIndex="1" GridPane.columnIndex="0" textFill="white"-->
+        <!--GridPane.valignment="BASELINE"/>-->
+        <!--<TextField GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.valignment="BASELINE"-->
+        <!--fx:id="buyAmount" maxWidth="120" minWidth="120" promptText="0.00"-->
+        <!--/>-->
 
-            <!--<Label text="Price in rel" GridPane.rowIndex="2" GridPane.columnIndex="0" textFill="white"-->
-                   <!--GridPane.valignment="BASELINE"/>-->
-            <!--<TextField-->
-                    <!--GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.valignment="BASELINE"-->
-                    <!--fx:id="buyPrice" maxWidth="120" minWidth="120" promptText="0.00"-->
-            <!--/>-->
+        <!--<Label text="Price in rel" GridPane.rowIndex="2" GridPane.columnIndex="0" textFill="white"-->
+        <!--GridPane.valignment="BASELINE"/>-->
+        <!--<TextField-->
+        <!--GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.valignment="BASELINE"-->
+        <!--fx:id="buyPrice" maxWidth="120" minWidth="120" promptText="0.00"-->
+        <!--/>-->
 
-            <!--<Label text="Total base" GridPane.rowIndex="3" GridPane.columnIndex="0" textFill="white"-->
-                   <!--GridPane.valignment="BASELINE"/>-->
-            <!--<Label fx:id="buyTotal" GridPane.rowIndex="3" GridPane.columnIndex="1" textFill="white"-->
-                   <!--GridPane.valignment="BASELINE"/>-->
+        <!--<Label text="Total base" GridPane.rowIndex="3" GridPane.columnIndex="0" textFill="white"-->
+        <!--GridPane.valignment="BASELINE"/>-->
+        <!--<Label fx:id="buyTotal" GridPane.rowIndex="3" GridPane.columnIndex="1" textFill="white"-->
+        <!--GridPane.valignment="BASELINE"/>-->
 
-            <!--<Button-->
-            <!--GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BASELINE"-->
-            <!--text="Buy"-->
-            <!--onAction="#buyBtn"-->
-            <!--/>-->
+        <!--<Button-->
+        <!--GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BASELINE"-->
+        <!--text="Buy"-->
+        <!--onAction="#buyBtn"-->
+        <!--/>-->
 
 
-            <!--&lt;!&ndash;Sell&ndash;&gt;-->
-            <!--<Label text="Sell" GridPane.rowIndex="0" GridPane.columnIndex="3" textFill="#faaa00"-->
-                   <!--style="-fx-font-size: 24" GridPane.valignment="BASELINE"/>-->
+        <!--&lt;!&ndash;Sell&ndash;&gt;-->
+        <!--<Label text="Sell" GridPane.rowIndex="0" GridPane.columnIndex="3" textFill="#faaa00"-->
+        <!--style="-fx-font-size: 24" GridPane.valignment="BASELINE"/>-->
 
-            <!--<Label text="Amount of base" GridPane.rowIndex="1" GridPane.columnIndex="3" textFill="white"-->
-                   <!--GridPane.valignment="BASELINE"/>-->
-            <!--<TextField GridPane.rowIndex="1" GridPane.columnIndex="4" GridPane.valignment="BASELINE"-->
-                       <!--maxWidth="120" minWidth="120" promptText="0.00"-->
-            <!--/>-->
+        <!--<Label text="Amount of base" GridPane.rowIndex="1" GridPane.columnIndex="3" textFill="white"-->
+        <!--GridPane.valignment="BASELINE"/>-->
+        <!--<TextField GridPane.rowIndex="1" GridPane.columnIndex="4" GridPane.valignment="BASELINE"-->
+        <!--maxWidth="120" minWidth="120" promptText="0.00"-->
+        <!--/>-->
 
-            <!--<Label text="Price in rel" GridPane.rowIndex="2" GridPane.columnIndex="3" textFill="white"-->
-                   <!--GridPane.valignment="BASELINE"/>-->
-            <!--<TextField GridPane.rowIndex="2" GridPane.columnIndex="4" GridPane.valignment="BASELINE"-->
-                       <!--maxWidth="120" minWidth="120" promptText="0.00"-->
-            <!--/>-->
+        <!--<Label text="Price in rel" GridPane.rowIndex="2" GridPane.columnIndex="3" textFill="white"-->
+        <!--GridPane.valignment="BASELINE"/>-->
+        <!--<TextField GridPane.rowIndex="2" GridPane.columnIndex="4" GridPane.valignment="BASELINE"-->
+        <!--maxWidth="120" minWidth="120" promptText="0.00"-->
+        <!--/>-->
         <!--</GridPane>-->
         <GridPane GridPane.rowIndex="6" GridPane.columnIndex="6" GridPane.rowSpan="2" GridPane.columnSpan="3"
                   style="-fx-background-color: #9e9e9e"

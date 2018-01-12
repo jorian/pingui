@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.ToggleButton?>
-<BorderPane focusTraversable="true" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Main">
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.RadioButton?>
+<BorderPane fx:controller="main.java.controller.Main" fx:id="rootPane"
+            xmlns:fx="http://javafx.com/fxml">
+
     <top>
         <GridPane style="-fx-background-color: #326464" BorderPane.alignment="CENTER">
             <columnConstraints>
@@ -21,19 +22,25 @@
             <rowConstraints>
                 <RowConstraints minHeight="10.0"/>
             </rowConstraints>
+
             <HBox minWidth="300" nodeOrientation="RIGHT_TO_LEFT" prefWidth="300.0" GridPane.columnIndex="1">
                 <GridPane.margin>
                     <Insets left="15" right="20.0"/>
                 </GridPane.margin>
-                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="logoutBtn" styleClass="menuBtn"
-                              text="Logout" />
-                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="faqBtn" styleClass="menuBtn"
+
+                <fx:define>
+                    <ToggleGroup fx:id="menuToggle"/>
+
+                </fx:define>
+                <RadioButton mnemonicParsing="false" toggleGroup="$menuToggle" fx:id="logoutBtn" styleClass="menuBtn"
+                             text="Logout" />
+                <RadioButton mnemonicParsing="false" toggleGroup="$menuToggle" fx:id="faqBtn" styleClass="menuBtn"
                               text="FAQ" />
-                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="coinsBtn" styleClass="menuBtn"
+                <RadioButton mnemonicParsing="false" toggleGroup="$menuToggle" fx:id="coinsBtn" styleClass="menuBtn"
                               text="Coins"/>
-                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="exchangeBtn" styleClass="menuBtn"
+                <RadioButton mnemonicParsing="false" toggleGroup="$menuToggle" fx:id="exchangeBtn" styleClass="menuBtn"
                               text="Exchange" />
-                <ToggleButton mnemonicParsing="false" onAction="#changeScreen" fx:id="tradeHistoryBtn" styleClass="menuBtn"
+                <RadioButton mnemonicParsing="false" toggleGroup="$menuToggle" fx:id="tradeHistoryBtn" styleClass="menuBtn"
                               text="Trade history"/>
             </HBox>
             <Label depthTest="DISABLE" text="Pingui" style="-fx-font: 20px Tahoma" textFill="#faaa00">
@@ -44,8 +51,4 @@
 
         </GridPane>
     </top>
-   <center>
-      <BorderPane fx:id="contentPane" style="-fx-background-color: #919191">
-      </BorderPane>
-   </center>
 </BorderPane>

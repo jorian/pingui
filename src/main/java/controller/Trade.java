@@ -1,22 +1,15 @@
 package controller;
 
-import com.google.gson.*;
+
 import com.sun.javafx.scene.control.skin.TableHeaderRow;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import utils.BarterRPC;
-
-import java.io.IOException;
-import java.util.Arrays;
 
 
 public class Trade {
-    private BarterRPC barterRPC;
+//    private BarterRPC barterRPC;
     private Pending pendingSwap;
 
     @FXML private GridPane contentPane;
@@ -31,13 +24,17 @@ public class Trade {
     @FXML private TextField buyPrice;
     @FXML private Label buyTotal;
 
-
-    public Trade() throws Exception {
-        barterRPC = new BarterRPC();
+    public Trade() {
+        try {
+//            barterRPC = new BarterRPC();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
     public void initialize() {
+
         AnchorPane.setTopAnchor(contentPane, 0.0);
         AnchorPane.setBottomAnchor(contentPane, 0.0);
         AnchorPane.setLeftAnchor(contentPane, 0.0);
@@ -86,34 +83,34 @@ public class Trade {
         relCoin.appendText("KMD");
     }
 
-    public void getOrderbook(Event e) throws Exception {
-//        String response = barterRPC.getCoin(baseCoin.getText());
-        String response = barterRPC.orderbook(baseCoin.getText(),relCoin.getText());
-        System.out.println(response);
-
-        // If something goes wrong with the request, the response will be empty.
-        if (!response.equals("") && !response.contains("error") && !response.contains("userpass")) {
-            Orders orders = new Gson().fromJson(response, Orders.class);
-
-            System.out.println(orders.asks.length);
-            System.out.println(orders.bids.length);
-
-            ObservableList<Orders.Asks> asksList = FXCollections.observableList(Arrays.asList(orders.asks));
-            ObservableList<Orders.Bids> bidsList = FXCollections.observableList(Arrays.asList(orders.bids));
-
-            orderbookAsks.getItems().clear();
-            orderbookAsks.getItems().addAll(asksList);
-
-            orderbookBids.getItems().clear();
-            orderbookBids.getItems().addAll(bidsList);
-
-
-            if (orders.bids.length > 0)
-                avgaskvolume.setText("Avg volume (" + orders.bids[0].coin + ")");
-            if (orders.asks.length > 0)
-                avgbidvolume.setText("Avg volume (" + orders.asks[0].coin + ")");
-        }
-    }
+//    public void getOrderbook(Event e) throws Exception {
+////        String response = barterRPC.getCoin(baseCoin.getText());
+//        String response = barterRPC.orderbook(baseCoin.getText(),relCoin.getText());
+//        System.out.println(response);
+//
+//        // If something goes wrong with the request, the response will be empty.
+//        if (!response.equals("") && !response.contains("error") && !response.contains("userpass")) {
+//            Orders orders = new Gson().fromJson(response, Orders.class);
+//
+//            System.out.println(orders.asks.length);
+//            System.out.println(orders.bids.length);
+//
+//            ObservableList<Orders.Asks> asksList = FXCollections.observableList(Arrays.asList(orders.asks));
+//            ObservableList<Orders.Bids> bidsList = FXCollections.observableList(Arrays.asList(orders.bids));
+//
+//            orderbookAsks.getItems().clear();
+//            orderbookAsks.getItems().addAll(asksList);
+//
+//            orderbookBids.getItems().clear();
+//            orderbookBids.getItems().addAll(bidsList);
+//
+//
+//            if (orders.bids.length > 0)
+//                avgaskvolume.setText("Avg volume (" + orders.bids[0].coin + ")");
+//            if (orders.asks.length > 0)
+//                avgbidvolume.setText("Avg volume (" + orders.asks[0].coin + ")");
+//        }
+//    }
 
     public static class Orders {
         Bids[] bids;
@@ -227,27 +224,27 @@ public class Trade {
         }
     }
 
-    public void buyBtn(Event e) throws IOException {
-        String response = barterRPC.buy(baseCoin.getText(),relCoin.getText(), Double.valueOf(buyAmount.getText()), Double.valueOf(buyPrice.getText()));
-
-        // If something goes wrong with the request, the response will be empty.
-        if (!response.equals("") && !response.contains("error")) {
-            JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
-            if (jsonObject == null) {
-                System.out.println("json is NULL");
-            } else {
-                if (jsonObject.get("result").toString().equals("success")) {
-                    JsonObject jsonPending = jsonObject.getAsJsonObject("pending");
-
-                    pendingSwap = new Gson().fromJson(jsonPending, Pending.class);
-
-                    System.out.println("Expiration: " + pendingSwap.expiration);
-                }
-            }
-        }
-
-
-    }
+//    public void buyBtn(Event e) throws IOException {
+//        String response = barterRPC.buy(baseCoin.getText(),relCoin.getText(), Double.valueOf(buyAmount.getText()), Double.valueOf(buyPrice.getText()));
+//
+//        // If something goes wrong with the request, the response will be empty.
+//        if (!response.equals("") && !response.contains("error")) {
+//            JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+//            if (jsonObject == null) {
+//                System.out.println("json is NULL");
+//            } else {
+//                if (jsonObject.get("result").toString().equals("success")) {
+//                    JsonObject jsonPending = jsonObject.getAsJsonObject("pending");
+//
+//                    pendingSwap = new Gson().fromJson(jsonPending, Pending.class);
+//
+//                    System.out.println("Expiration: " + pendingSwap.expiration);
+//                }
+//            }
+//        }
+//
+//
+//    }
 
     public static class Pending {
         private long expiration;

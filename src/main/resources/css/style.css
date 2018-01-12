@@ -19,6 +19,8 @@
 
 .menuBtn:focused:selected {
      -fx-background-color: #357171;
+    -fx-border-insets: 0 0 0 0;
+    -fx-background-insets: 0 0 0 0;
 }
 
 /*

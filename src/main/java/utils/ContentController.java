@@ -1,7 +1,5 @@
 package utils;
 
-import javafx.fxml.FXMLLoader;
-
 import java.io.IOException;
 
 public class ContentController  {
@@ -37,7 +35,7 @@ public class ContentController  {
 
 //        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(pane.getResourceLocation()))
 
-        StageManager.setPaneFragment(FXMLLoader.load(ContentController.class.getResource(pane.getResourceLocation())));
+//        StageManager.setPaneFragment(FXMLLoader.load(ContentController.class.getResource(pane.getResourceLocation())));
 
     }
 
