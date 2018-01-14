@@ -24,9 +24,11 @@ public class ElectrumServers {
         } catch (IOException e) {
             System.err.println("electrum.json not found");
         }
+
         electrumEnabledCoins = electrumsFile.keySet();
 
-
+        // TODO needs solution.
+        // Retrieve servers from difficult to parse JSON:
         electrumEnabledCoins.forEach((coinName -> {
             ArrayList<Electrum> electrums = new ArrayList<>(2);
             (electrumsFile.get(coinName).getAsJsonArray()).forEach(jsonElement -> {

@@ -87,17 +87,11 @@ public class Coins {
             JsonArray ipList = jsonObject.getAsJsonArray(comboBoxValue);
             ArrayList<String> coinIPList = new ArrayList<>();
 
-            System.out.println(ipList.toString());
             for (JsonElement j : ipList) {
-//                System.out.println(j.getAsJsonPrimitive().toString());
 
                 Set<String> ip = j.getAsJsonObject().keySet();
                 coinIPList.addAll(ip);
             }
-
-            System.out.println(coinIPList);
-
-
 
             activeCoinsListView.setItems(observableList);
             comboBox.getItems().remove(comboBox.getValue());
@@ -111,8 +105,6 @@ public class Coins {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void disableCoin(ActionEvent actionEvent) {
@@ -121,8 +113,6 @@ public class Coins {
             comboBox.getItems().add(activeCoinsListView.getSelectionModel().getSelectedItem());
             Collections.sort(comboBox.getItems());
             activeCoinsListView.getItems().remove(activeCoinsListView.getSelectionModel().getSelectedItem());
-
-
         }
     }
 

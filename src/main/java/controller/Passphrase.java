@@ -14,10 +14,11 @@ import javafx.scene.layout.GridPane;
 import model.CoinsList;
 import utils.SessionStorage;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 import static utils.BarterRPC.barterRPC;
 
@@ -72,23 +73,16 @@ public class Passphrase {
 
             new Thread(taskMarketMaker).start();
 
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main/main.fxml"));
-//            Parent root = loader.load();
-
             mainController.menuToggle.selectToggle(mainController.coinsBtn);
             mainController.disableButtons();
-
-
         }
-
     }
 
     private void startMarketmaker() throws Exception {
         String passphrase = SessionStorage.getPassphrase();
 
         // Contents of coins file:
-        String coinsFileContent = new String(Files.readAllBytes(Paths.get("/home/n41r0j/pingui/src/main/resources/assets/coins.json")));
-//        System.out.println(coinsFileContent);
+        String coinsFileContent = new String(Files.readAllBytes(Paths.get("src/main/resources/assets/coins.json")));
 
         String params = "{\"gui\":\"pingui\"," +
                 "\"client\":1," +
@@ -96,30 +90,25 @@ public class Passphrase {
                 "\"passphrase\":\""+ passphrase +"\"," +
                 "\"coins\":" + coinsFileContent + "}\r\n";
 
-//        System.out.println("complete params: " + params);
 
-        // TODO
 //         Starts marketmaker process:
-        process = new ProcessBuilder("/home/n41r0j/pingui/src/main/resources/assets/linux64/marketmaker", params)
-                .inheritIO()
-                .start();//        System.out.println(process.waitFor());
-//
-//        BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
-//
-//        String line;
-//        while ((line = bri.readLine()) != null) {
-//            System.out.println(line);
-//            line = "";
-//        }
+        process = new ProcessBuilder("src/main/resources/assets/linux64/marketmaker", params)
+                //.redirectOutput(ProcessBuilder.Redirect.appendTo(new File("src/debug.log")))
+                .start();
 
-        // TODO
         TimeUnit.SECONDS.sleep(2);
+
+        StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(),System.out::println);
+        new Thread(streamGobbler).start();
 
         String postJSONData = "{" +
                 "\"userpass\":\"userpass\"," +
                 "\"method\":\"getcoin\"," +
                 "\"coin\":\"KMD\"" +
                 "}";
+
+
+        // Do stuff after MarketMaker process has started:
         String response = barterRPC.postRequest(postJSONData);
 
         if (!response.equals("") && !response.contains("error")) {
@@ -140,6 +129,20 @@ public class Passphrase {
                 mainController.loadCoinsFile();
                 barterRPC.setUserpass(_userpass);
             }
+        }
+    }
+
+    class StreamGobbler implements Runnable {
+        private InputStream inputStream;
+        private Consumer<String> consumeInputLine;
+
+        public StreamGobbler(InputStream inputStream, Consumer<String> consumeInputLine) {
+            this.inputStream = inputStream;
+            this.consumeInputLine = consumeInputLine;
+        }
+
+        public void run() {
+            new BufferedReader(new InputStreamReader(inputStream)).lines().forEach(consumeInputLine);
         }
     }
 }

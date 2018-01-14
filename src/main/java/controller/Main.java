@@ -71,7 +71,6 @@ public class Main {
             }
         });
 
-
         rootPane.setCenter(passphrase);
     }
 
