@@ -1,5 +1,9 @@
 package controller;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageConfig;
@@ -20,7 +24,12 @@ import javafx.scene.layout.GridPane;
 import utils.BarterRPC;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Set;
 
 import static utils.BarterRPC.barterRPC;
 
@@ -39,7 +48,35 @@ public class Coins {
 
     public void initialize() {
         observableList = FXCollections.observableArrayList();
+        comboBox.setEditable(true);
+
+        // get coin name from coins file to show up in combobox
+        try {
+            JsonArray jsonArrayBig = new JsonParser().parse(new String(Files.readAllBytes(Paths.get("src/main/resources/assets/coins.json")))).getAsJsonArray();
+
+            for (JsonElement aJsonArrayBig : jsonArrayBig) {
+                comboBox.getItems().add(aJsonArrayBig.getAsJsonObject().get("coin").getAsString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        FilteredList<String> filteredList = new FilteredList<>(observableList, p -> true);
         Collections.sort(comboBox.getItems());
+
+//        comboBox.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+//            final TextField editor = comboBox.getEditor();
+//            final String selected = comboBox.getSelectionModel().getSelectedItem();
+//
+//            Platform.runLater(() -> {
+//                if (selected == null || !selected.equals(editor.getText())) {
+//                    filteredList.setPredicate(item -> item.toLowerCase().startsWith(newValue.toLowerCase()));
+//                }
+//            });
+//
+//        });
+
+//        comboBox.getItems().addAll(observableList);
 
         activeCoinsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newvalue) -> {
             try {
@@ -54,16 +91,38 @@ public class Coins {
 
     public void enableCoin(ActionEvent actionEvent) {
 
-        String string = comboBox.getValue();
-        observableList.add(string);
+        String comboBoxValue = comboBox.getValue();
+        try {
+            JsonObject jsonObject = new JsonParser().parse(new String(Files.readAllBytes(Paths.get("src/main/resources/assets/electrum.json")))).getAsJsonObject();
 
-        activeCoinsListView.setItems(observableList);
-        comboBox.getItems().remove(comboBox.getValue());
+            JsonArray ipList = jsonObject.getAsJsonArray(comboBoxValue);
+            ArrayList<String> coinIPList = new ArrayList<>();
 
-        // Select Electrum button as default
-        toggleGroup.selectToggle(toggleGroup.getToggles().get(0));
+            System.out.println(ipList.toString());
+            for (JsonElement j : ipList) {
+//                System.out.println(j.getAsJsonPrimitive().toString());
 
-        barterRPC.enableElectrum("CHIPS");
+                Set<String> ip = j.getAsJsonObject().keySet();
+                coinIPList.addAll(ip);
+            }
+
+            System.out.println(coinIPList);
+
+
+
+            activeCoinsListView.setItems(observableList);
+            comboBox.getItems().remove(comboBox.getValue());
+
+            // Select Electrum button as default
+            toggleGroup.selectToggle(toggleGroup.getToggles().get(0));
+
+            String response = barterRPC.enableElectrum(comboBoxValue, coinIPList.get(0),ipList.get(0).getAsJsonObject().get(coinIPList.get(0)).getAsString());
+
+            observableList.add(comboBoxValue);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

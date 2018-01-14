@@ -64,7 +64,7 @@ public class Passphrase {
             Task taskMarketMaker = new Task() {
                 @Override
                 protected Object call() throws Exception {
-                    startMarketmaker();
+//                    startMarketmaker();
                     return null;
                 }
             };

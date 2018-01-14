@@ -27,15 +27,14 @@ public class BarterRPC {
         prefs = Preferences.userRoot();
     }
 
-    public String enableElectrum(String coin) {
+    public String enableElectrum(String coin, String ipaddr, String port) {
 
-        coin = "CHIPS";
         String postJSONData = "{" +
                 "\"userpass\":\""+prefs.get("userpass", "")+"\"," +
                 "\"method\":\"electrum\"," +
                 "\"coin\":\"" + coin + "\"," +
-                "\"ipaddr\":\"electrum1.cipig.net\"," +
-                "\"port\":10053" +
+                "\"ipaddr\":\"" + ipaddr + "\"," +
+                "\"port\":" + port + "" +
                 "}";
 
         System.out.println("Method call: " + postJSONData);
