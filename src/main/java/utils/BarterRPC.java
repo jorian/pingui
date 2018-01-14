@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.prefs.Preferences;
 
@@ -17,9 +18,29 @@ public class BarterRPC {
     public static BarterRPC barterRPC;
     private Preferences prefs;
 
-    public BarterRPC() throws Exception {
-        url = new URL("http://127.0.0.1:7783");
+    public BarterRPC() {
+        try {
+            url = new URL("http://127.0.0.1:7783");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         prefs = Preferences.userRoot();
+    }
+
+    public String enableElectrum(String coin) {
+
+        coin = "CHIPS";
+        String postJSONData = "{" +
+                "\"userpass\":\""+prefs.get("userpass", "")+"\"," +
+                "\"method\":\"electrum\"," +
+                "\"coin\":\"" + coin + "\"," +
+                "\"ipaddr\":\"electrum1.cipig.net\"," +
+                "\"port\":10053" +
+                "}";
+
+        System.out.println("Method call: " + postJSONData);
+
+        return postRequest(postJSONData);
     }
 
     public String orderbook(String base, String rel) throws IOException {

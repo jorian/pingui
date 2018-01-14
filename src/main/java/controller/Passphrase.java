@@ -2,6 +2,7 @@ package controller;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -60,15 +61,15 @@ public class Passphrase {
             sessionStorage.setPassphrase(passphraseField.getText());
 
             // TODO
-//            Task taskMarketMaker = new Task() {
-//                @Override
-//                protected Object call() throws Exception {
-//                    startMarketmaker();
-//                    return null;
-//                }
-//            };
+            Task taskMarketMaker = new Task() {
+                @Override
+                protected Object call() throws Exception {
+                    startMarketmaker();
+                    return null;
+                }
+            };
 
-//            new Thread(taskMarketMaker).start();
+            new Thread(taskMarketMaker).start();
 
 //            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main/main.fxml"));
 //            Parent root = loader.load();

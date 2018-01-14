@@ -13,22 +13,29 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
+import utils.BarterRPC;
 
 import java.awt.image.BufferedImage;
 import java.util.Collections;
 
+import static utils.BarterRPC.barterRPC;
+
 public class Coins {
 
     public Button disableCoin;
+    @FXML
+    ToggleGroup toggleGroup;
     @FXML GridPane contentPane;
     @FXML ComboBox<String> comboBox;
     @FXML ListView<String> activeCoinsListView;
     @FXML ImageView qrcodeview;
 
     private ObservableList<String> observableList;
+
 
     public void initialize() {
         observableList = FXCollections.observableArrayList();
@@ -42,6 +49,7 @@ public class Coins {
                 e.printStackTrace();
             }
         });
+        barterRPC = new BarterRPC();
     }
 
     public void enableCoin(ActionEvent actionEvent) {
@@ -50,8 +58,12 @@ public class Coins {
         observableList.add(string);
 
         activeCoinsListView.setItems(observableList);
-
         comboBox.getItems().remove(comboBox.getValue());
+
+        // Select Electrum button as default
+        toggleGroup.selectToggle(toggleGroup.getToggles().get(0));
+
+        barterRPC.enableElectrum("CHIPS");
 
     }
 
