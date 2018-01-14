@@ -1,18 +1,23 @@
 package controller;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageConfig;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.qrcode.QRCodeWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
-import net.glxn.qrgen.core.image.ImageType;
-import net.glxn.qrgen.javase.QRCode;
 
+import java.awt.image.BufferedImage;
 import java.util.Collections;
 
 public class Coins {
@@ -21,8 +26,7 @@ public class Coins {
     @FXML GridPane contentPane;
     @FXML ComboBox<String> comboBox;
     @FXML ListView<String> activeCoinsListView;
-    @FXML
-    ImageView qrcodeview;
+    @FXML ImageView qrcodeview;
 
     private ObservableList<String> observableList;
 
@@ -30,15 +34,14 @@ public class Coins {
         observableList = FXCollections.observableArrayList();
         Collections.sort(comboBox.getItems());
 
-        activeCoinsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue);
+        activeCoinsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newvalue) -> {
+            try {
+                qrcodeview.setPreserveRatio(true);
+                qrcodeview.setImage(createQRImage(newvalue));
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
         });
-
-
-
-        Image image = new Image(QRCode.from("1AwDWu5rZKyGMUu16gf9Kow8ohnKmc7tGH").to(ImageType.PNG).withSize(230,230).file().toURI().toString());
-        qrcodeview.setImage(image);
-        qrcodeview.setPreserveRatio(true);
     }
 
     public void enableCoin(ActionEvent actionEvent) {
@@ -61,6 +64,12 @@ public class Coins {
 
 
         }
+    }
+
+    private WritableImage createQRImage(String address) throws WriterException {
+        MatrixToImageConfig imageConfig = new MatrixToImageConfig(MatrixToImageConfig.BLACK,0x009E9E9E);
+        BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(new QRCodeWriter().encode(address,BarcodeFormat.QR_CODE,230,230),imageConfig);
+        return SwingFXUtils.toFXImage(bufferedImage,null);
     }
 }
 
