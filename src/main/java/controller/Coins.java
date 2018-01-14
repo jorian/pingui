@@ -21,6 +21,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
+import model.CoinsList;
 import utils.BarterRPC;
 
 import java.awt.image.BufferedImage;
@@ -36,47 +37,34 @@ import static utils.BarterRPC.barterRPC;
 public class Coins {
 
     public Button disableCoin;
-    @FXML
-    ToggleGroup toggleGroup;
+    @FXML ToggleGroup toggleGroup;
     @FXML GridPane contentPane;
     @FXML ComboBox<String> comboBox;
     @FXML ListView<String> activeCoinsListView;
     @FXML ImageView qrcodeview;
 
     private ObservableList<String> observableList;
+    private ObservableList<String> comboBoxCoinsListener;
+    private Main mainController;
 
+
+    public void setMain(Main main) { this.mainController = main; }
+
+    public void loadCoinsFile() {
+        if (mainController != null) {
+            for (CoinsList.Coin coin : mainController.getCoinsList().getCoins()) {
+                comboBoxCoinsListener.add(coin.getCoin());
+            }
+            comboBox.getItems().addAll(comboBoxCoinsListener);
+            Collections.sort(comboBox.getItems());
+        }
+    }
 
     public void initialize() {
         observableList = FXCollections.observableArrayList();
+        comboBoxCoinsListener = FXCollections.observableArrayList();
+
         comboBox.setEditable(true);
-
-        // get coin name from coins file to show up in combobox
-        try {
-            JsonArray jsonArrayBig = new JsonParser().parse(new String(Files.readAllBytes(Paths.get("src/main/resources/assets/coins.json")))).getAsJsonArray();
-
-            for (JsonElement aJsonArrayBig : jsonArrayBig) {
-                comboBox.getItems().add(aJsonArrayBig.getAsJsonObject().get("coin").getAsString());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-//        FilteredList<String> filteredList = new FilteredList<>(observableList, p -> true);
-        Collections.sort(comboBox.getItems());
-
-//        comboBox.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-//            final TextField editor = comboBox.getEditor();
-//            final String selected = comboBox.getSelectionModel().getSelectedItem();
-//
-//            Platform.runLater(() -> {
-//                if (selected == null || !selected.equals(editor.getText())) {
-//                    filteredList.setPredicate(item -> item.toLowerCase().startsWith(newValue.toLowerCase()));
-//                }
-//            });
-//
-//        });
-
-//        comboBox.getItems().addAll(observableList);
 
         activeCoinsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newvalue) -> {
             try {
@@ -86,6 +74,7 @@ public class Coins {
                 e.printStackTrace();
             }
         });
+
         barterRPC = new BarterRPC();
     }
 

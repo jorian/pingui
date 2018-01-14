@@ -78,9 +78,15 @@ public class Main {
     private void fxmlSetup() {
 
         try {
+            FXMLLoader passphraseLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/passphrase.fxml"));
+            passphrase = passphraseLoader.load();
+            passphraseController = passphraseLoader.getController();
+            passphraseController.setMain(this);
+
             FXMLLoader coinsLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/coins.fxml"));
             coins = coinsLoader.load();
             coinsController = coinsLoader.getController();
+            coinsController.setMain(this);
 
             FXMLLoader tradeLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/trade.fxml"));
             trade = tradeLoader.load();
@@ -89,11 +95,6 @@ public class Main {
             FXMLLoader faqLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/faq.fxml"));
             faq = faqLoader.load();
             faqController = faqLoader.getController();
-
-            FXMLLoader passphraseLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/passphrase.fxml"));
-            passphrase = passphraseLoader.load();
-            passphraseController = passphraseLoader.getController();
-            passphraseController.setMain(this);
 
             FXMLLoader tradeHistoryLoader = new FXMLLoader(getClass().getResource("/fxml/scenes/tradeHistory.fxml"));
             tradeHistory = tradeHistoryLoader.load();
@@ -112,8 +113,8 @@ public class Main {
         });
     }
 
-    void loadElectrumsFile() {
-
+    void loadCoinsFile() {
+        coinsController.loadCoinsFile();
     }
 
     CoinsList getCoinsList() {

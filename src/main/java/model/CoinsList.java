@@ -12,6 +12,11 @@ public class CoinsList {
     public void addToCoinsList(Coin c) {
         this.coins.add(c);
     }
+
+    public ArrayList<Coin> getCoins() {
+        return coins;
+    }
+
     public class Coin {
         private String coin;
         private boolean installed;

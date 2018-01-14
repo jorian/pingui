@@ -77,6 +77,8 @@ public class Passphrase {
 
             mainController.menuToggle.selectToggle(mainController.coinsBtn);
             mainController.disableButtons();
+
+
         }
 
     }
@@ -111,7 +113,7 @@ public class Passphrase {
 //        }
 
         // TODO
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(2);
 
         String postJSONData = "{" +
                 "\"userpass\":\"userpass\"," +
@@ -135,6 +137,7 @@ public class Passphrase {
 
                     System.out.println(coin.toString());
                 });
+                mainController.loadCoinsFile();
                 barterRPC.setUserpass(_userpass);
             }
         }
