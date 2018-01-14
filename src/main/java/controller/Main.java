@@ -104,4 +104,8 @@ public class Main {
             ((RadioButton) toggle).setDisable(false);
         });
     }
+
+    void loadElectrumsFile() {
+
+    }
 }
