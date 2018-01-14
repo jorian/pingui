@@ -1,5 +1,7 @@
 package controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.concurrent.Task;
@@ -9,11 +11,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import model.CoinsList;
 import utils.SessionStorage;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
@@ -64,7 +65,7 @@ public class Passphrase {
             Task taskMarketMaker = new Task() {
                 @Override
                 protected Object call() throws Exception {
-//                    startMarketmaker();
+                    startMarketmaker();
                     return null;
                 }
             };
@@ -85,7 +86,7 @@ public class Passphrase {
 
         // Contents of coins file:
         String coinsFileContent = new String(Files.readAllBytes(Paths.get("/home/n41r0j/pingui/src/main/resources/assets/coins.json")));
-        System.out.println(coinsFileContent);
+//        System.out.println(coinsFileContent);
 
         String params = "{\"gui\":\"pingui\"," +
                 "\"client\":1," +
@@ -93,27 +94,28 @@ public class Passphrase {
                 "\"passphrase\":\""+ passphrase +"\"," +
                 "\"coins\":" + coinsFileContent + "}\r\n";
 
-        System.out.println("complete params: " + params);
+//        System.out.println("complete params: " + params);
 
         // TODO
 //         Starts marketmaker process:
         process = new ProcessBuilder("/home/n41r0j/pingui/src/main/resources/assets/linux64/marketmaker", params)
-                .inheritIO().start();//        System.out.println(process.waitFor());
-
-        BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-        String line;
-        while ((line = bri.readLine()) != null) {
-            System.out.println(line);
-            line = "";
-        }
+                .inheritIO()
+                .start();//        System.out.println(process.waitFor());
+//
+//        BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//
+//        String line;
+//        while ((line = bri.readLine()) != null) {
+//            System.out.println(line);
+//            line = "";
+//        }
 
         // TODO
         TimeUnit.SECONDS.sleep(5);
 
         String postJSONData = "{" +
                 "\"userpass\":\"userpass\"," +
-                "\"method\":\"orderbook\"," +
+                "\"method\":\"getcoin\"," +
                 "\"coin\":\"KMD\"" +
                 "}";
         String response = barterRPC.postRequest(postJSONData);
@@ -124,7 +126,15 @@ public class Passphrase {
                 System.out.println("json is NULL");
             } else {
                 String _userpass = jsonObject.get("userpass").getAsString();
-                System.out.println(_userpass);
+                JsonArray coinsArray = jsonObject.getAsJsonArray("coins");
+                coinsArray.forEach(jsonElement -> {
+                    Gson gson = new Gson();
+                    CoinsList coinsList = mainController.getCoinsList();
+                    CoinsList.Coin coin = gson.fromJson(jsonElement, CoinsList.Coin.class);
+                    coinsList.addToCoinsList(coin);
+
+                    System.out.println(coin.toString());
+                });
                 barterRPC.setUserpass(_userpass);
             }
         }

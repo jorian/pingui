@@ -87,7 +87,7 @@
 
         <ListView fx:id="activeCoinsListView" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2" maxHeight="200">
             <placeholder>
-                <Label text="No active coins" />
+                <Label text="No active coinsList" />
             </placeholder>
         </ListView>
 

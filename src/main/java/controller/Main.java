@@ -7,6 +7,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
+import model.CoinsList;
 import model.ElectrumServers;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class Main {
 
     private ElectrumServers electrumServers;
+    private CoinsList coinsList;
 
     private Coins coinsController;
     private Trade tradeController;
@@ -37,6 +39,8 @@ public class Main {
 
     public void initialize() {
         electrumServers = new ElectrumServers();
+        coinsList = new CoinsList();
+
         fxmlSetup();
 
         menuToggle.getToggles().forEach(toggle -> {
@@ -110,5 +114,9 @@ public class Main {
 
     void loadElectrumsFile() {
 
+    }
+
+    CoinsList getCoinsList() {
+        return coinsList;
     }
 }

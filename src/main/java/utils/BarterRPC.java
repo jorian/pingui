@@ -111,7 +111,7 @@ public class BarterRPC {
             in.close();
 
 
-            System.out.println(response.toString());
+//            System.out.println(response.toString());
 
             connection.disconnect();
 

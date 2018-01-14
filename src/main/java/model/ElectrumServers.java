@@ -44,10 +44,6 @@ public class ElectrumServers {
 
     }
 
-    public static void main(String[] args) {
-        new ElectrumServers();
-    }
-
     class Electrum {
         String ipaddr;
 
