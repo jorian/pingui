@@ -7,12 +7,13 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
+import model.ElectrumServers;
 
 import java.io.IOException;
 
 public class Main {
 
-    @FXML BorderPane rootPane;
+    private ElectrumServers electrumServers;
 
     private Coins coinsController;
     private Trade tradeController;
@@ -20,6 +21,7 @@ public class Main {
     private Passphrase passphraseController;
     private TradeHistory tradeHistoryController;
 
+    @FXML BorderPane rootPane;
     @FXML public RadioButton coinsBtn;
     @FXML public RadioButton exchangeBtn;
     @FXML public RadioButton faqBtn;
@@ -34,6 +36,7 @@ public class Main {
     private Parent tradeHistory;
 
     public void initialize() {
+        electrumServers = new ElectrumServers();
         fxmlSetup();
 
         menuToggle.getToggles().forEach(toggle -> {

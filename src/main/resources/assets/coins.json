@@ -2,7 +2,7 @@
   {
     "coin": "XMCC",
     "name": "monoeci",
-    "confpath": "/home/n41r0j/.monoeciCore/monoeci.conf",
+    "confpath": "${HOME#}/.monoeciCore/monoeci.conf",
     "rpcport": 24156,
     "pubtype": 50,
     "p2shtype": 73,
@@ -27,7 +27,7 @@
   {
     "coin": "CRC",
     "name": "crowdcoin",
-    "confpath": "/home/n41r0j/.crowdcoincore/crowdcoin.conf",
+    "confpath": "${HOME#}/.crowdcoincore/crowdcoin.conf",
     "rpcport": 9998,
     "pubtype": 28,
     "p2shtype": 88,
@@ -47,7 +47,7 @@
   {
     "coin": "INN",
     "name": "innova",
-    "confpath": "/home/n41r0j/.innovacore/innova.conf",
+    "confpath": "${HOME#}/.innovacore/innova.conf",
     "rpcport": 8818,
     "pubtype": 102,
     "p2shtype": 20,
@@ -75,7 +75,7 @@
   {
     "coin": "EFL",
     "name": "egulden",
-    "confpath": "/home/n41r0j/.egulden/coin.conf",
+    "confpath": "${HOME#}/.egulden/coin.conf",
     "rpcport": 21015,
     "pubtype": 48,
     "p2shtype": 5,
@@ -85,7 +85,7 @@
   {
     "coin": "GBX",
     "name": "gobyte",
-    "confpath": "/home/n41r0j/.gobytecore/gobyte.conf",
+    "confpath": "${HOME#}/.gobytecore/gobyte.conf",
     "rpcport": 12454,
     "pubtype": 38,
     "p2shtype": 10,
@@ -104,7 +104,7 @@
   {
     "coin": "BLK",
     "name": "blackcoin",
-    "confpath": "/home/n41r0j/.lore/blackcoin.conf",
+    "confpath": "${HOME#}/.lore/blackcoin.conf",
     "isPoS": 1,
     "rpcport": 15715,
     "pubtype": 25,
@@ -178,7 +178,7 @@
   {
     "coin": "DSR",
     "name": "desire",
-    "confpath": "/home/n41r0j/.desirecore/desire.conf",
+    "confpath": "${HOME#}/.desirecore/desire.conf",
     "rpcport": 9918,
     "pubtype": 30,
     "p2shtype": 16,
@@ -239,7 +239,6 @@
   {
     "coin": "CHIPS",
     "name": "chips",
-    "active": 1,
     "rpcport": 57776,
     "pubtype": 60,
     "p2shtype": 85,
@@ -322,7 +321,7 @@
   {
     "coin": "ARC",
     "name": "arcticcoin",
-    "confpath": "/home/n41r0j/.arcticcore/arcticcoin.conf",
+    "confpath": "${HOME#}/.arcticcore/arcticcoin.conf",
     "rpcport": 7208,
     "pubtype": 23,
     "p2shtype": 8,
@@ -360,7 +359,7 @@
   {
     "coin": "FAIR",
     "name": "faircoin",
-    "confpath": "/home/n41r0j/.faircoin2/faircoin.conf",
+    "confpath": "${HOME#}/.faircoin2/faircoin.conf",
     "rpcport": 40405,
     "pubtype": 95,
     "p2shtype": 36,
@@ -397,7 +396,7 @@
   {
     "coin": "TRC",
     "name": "terracoin",
-    "confpath": "/home/n41r0j/.terracoincore/terracoin.conf",
+    "confpath": "${HOME#}/.terracoincore/terracoin.conf",
     "rpcport": 13332,
     "pubtype": 0,
     "p2shtype": 5,
@@ -435,7 +434,7 @@
     "coin": "NAV",
     "name": "navcoin",
     "isPoS": 1,
-    "confpath": "/home/n41r0j/.navcoin4/navcoin.conf",
+    "confpath": "${HOME#}/.navcoin4/navcoin.conf",
     "rpcport": 44444,
     "pubtype": 53,
     "p2shtype": 85,
@@ -471,7 +470,7 @@
   },
   {
     "coin": "DASH",
-    "confpath": "/home/n41r0j/.dashcore/dash.conf",
+    "confpath": "${HOME#}/.dashcore/dash.conf",
     "name": "dashcore",
     "rpcport": 9998,
     "pubtype": 76,
@@ -490,7 +489,7 @@
     "txfee": 10000
   },
   {
-    "confpath": "/home/n41r0j/.muecore/mue.conf",
+    "confpath": "${HOME#}/.muecore/mue.conf",
     "coin": "MUE",
     "name": "muecore",
     "rpcport": 29683,
@@ -594,7 +593,6 @@
   },
   {
     "coin": "HUSH",
-    "active": 1,
     "name": "hush",
     "rpcport": 8822,
     "taddr": 28,

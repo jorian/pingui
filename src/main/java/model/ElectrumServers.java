@@ -1,6 +1,5 @@
 package model;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -17,8 +16,7 @@ public class ElectrumServers {
     private JsonObject electrumsFile;
 
 
-
-    ElectrumServers() {
+    public ElectrumServers() {
         servers = new HashMap<>();
 
         try {
@@ -32,7 +30,6 @@ public class ElectrumServers {
         electrumEnabledCoins.forEach((coinName -> {
             ArrayList<Electrum> electrums = new ArrayList<>(2);
             (electrumsFile.get(coinName).getAsJsonArray()).forEach(jsonElement -> {
-                Gson gson = new Gson();
                 Set<String> keySet = jsonElement.getAsJsonObject().keySet();
                         keySet.forEach(key -> {
                             Electrum electrum = new Electrum(key,jsonElement.getAsJsonObject().get(key).getAsString());
@@ -45,22 +42,6 @@ public class ElectrumServers {
         servers.get("BTC").forEach(electrum ->
                 System.out.println(electrum.toString()));
 
-//        JsonArray ipList = electrumsFile.getAsJsonArray();
-//
-
-//
-//
-//        ArrayList<String> coinIPList = new ArrayList<>();
-//
-//        System.out.println(ipList.toString());
-//        for (JsonElement j : ipList) {
-////                System.out.println(j.getAsJsonPrimitive().toString());
-//
-//            Set<String> ip = j.getAsJsonObject().keySet();
-//            coinIPList.addAll(ip);
-//        }
-//
-//        System.out.println(coinIPList);
     }
 
     public static void main(String[] args) {
