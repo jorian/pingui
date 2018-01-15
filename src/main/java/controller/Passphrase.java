@@ -131,6 +131,7 @@ public class Passphrase {
                 });
                 mainController.loadCoinsFile();
                 mainController.loadElectrumEnabledCoins();
+                mainController.tradeScreenObserveActiveCoins();
                 barterRPC.setUserpass(_userpass);
             }
         }

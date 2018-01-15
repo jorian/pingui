@@ -58,6 +58,10 @@ public class Coins {
         }
     }
 
+    public ObservableList<String> getObservableList() {
+        return observableList;
+    }
+
     public void loadElectrumEnabledCoins() {
 
         electrumServers = mainController.getElectrumServers();

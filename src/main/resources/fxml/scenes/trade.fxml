@@ -51,8 +51,8 @@
                 <Insets topRightBottomLeft="6"/>
             </padding>
 
-            <TextField fx:id="baseCoin" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <TextField fx:id="relCoin" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="baseCoin" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <ComboBox fx:id="relCoin" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             <Button fx:id="getOrderbookBtn" GridPane.columnIndex="2" GridPane.rowIndex="1"
                     mnemonicParsing="false" text="Get orders"/>
         </GridPane>

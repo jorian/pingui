@@ -134,4 +134,8 @@ public class Main {
     ElectrumServers getElectrumServers() {
         return electrumServers;
     }
+
+    void tradeScreenObserveActiveCoins() {
+        tradeController.observeActiveCoins(coinsController.getObservableList());
+    }
 }

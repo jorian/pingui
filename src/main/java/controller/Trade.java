@@ -2,6 +2,8 @@ package controller;
 
 
 import com.sun.javafx.scene.control.skin.TableHeaderRow;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -18,8 +20,8 @@ public class Trade {
     @FXML private Button getOrderbookBtn;
     @FXML private TableColumn avgaskvolume;
     @FXML private TableColumn avgbidvolume;
-    @FXML private TextField relCoin;
-    @FXML private TextField baseCoin;
+    @FXML private ComboBox<String> relCoin;
+    @FXML private ComboBox<String> baseCoin;
     @FXML private TextField buyAmount;
     @FXML private TextField buyPrice;
     @FXML private Label buyTotal;
@@ -76,12 +78,15 @@ public class Trade {
                 buyTotal.setText(String.valueOf(Double.valueOf(newValue) * dBuyAmount));
             }
         });
-
-
-        // TODO DEBUG
-        baseCoin.appendText("CHIPS");
-        relCoin.appendText("KMD");
     }
+
+    void observeActiveCoins(ObservableList<String> activeCoins) {
+        activeCoins.addListener((ListChangeListener<? super String>) (observable) -> {
+            baseCoin.setItems(activeCoins);
+        });
+    }
+
+
 
 //    public void getOrderbook(Event e) throws Exception {
 ////        String response = barterRPC.getCoin(baseCoin.getText());
