@@ -1,9 +1,5 @@
 package controller;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageConfig;
@@ -19,12 +15,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
 import model.CoinsList;
+import model.ElectrumServers;
 import utils.BarterRPC;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
@@ -43,6 +37,7 @@ public class Coins {
     private ObservableList<String> observableList;
     private ObservableList<String> comboBoxCoinsListener;
 
+    private ElectrumServers electrumServers;
     private Set<String> coinsWithElectrumServers;
 
     private Main mainController;
@@ -50,6 +45,10 @@ public class Coins {
 
     public void setMain(Main main) { this.mainController = main; }
 
+    /*
+    We have to load this coins file later on in the process, because of a still unknown NPE on start up. maincontroller
+    is null, for some reason. Therefore, the coins from the response are loaded in startMarketMaker method in Passphrase
+     */
     public void loadCoinsFile() {
         if (mainController != null) {
             for (CoinsList.Coin coin : mainController.getCoinsList().getCoins()) {
@@ -62,7 +61,8 @@ public class Coins {
 
     public void loadElectrumEnabledCoins() {
 
-        coinsWithElectrumServers = mainController.getElectrumEnabledCoins();
+        electrumServers = mainController.getElectrumServers();
+        coinsWithElectrumServers = electrumServers.getCoinsWithElectrumServers();
     /*
      Check if Electrum is possible on selected coin and disable togglebutton if not:
      - disable Electrum radio button
@@ -91,14 +91,6 @@ public class Coins {
 
         comboBox.setEditable(true);
 
-        // Check if Electrum is possible on selected coin and disable togglebutton if not:
-//        comboBox.getSelectionModel().selectedItemProperty().addListener(observable -> {
-//            if (coinsWithElectrumServers.contains(comboBox.getSelectionModel().getSelectedItem())) {
-//                System.out.println(observable.toString());
-//            }
-////            System.out.println(comboBox.getSelectionModel().getSelectedItem());
-//        });
-
         // Create QR code:
         activeCoinsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newvalue) -> {
             try {
@@ -114,44 +106,46 @@ public class Coins {
 
     public void enableCoin(ActionEvent actionEvent) {
 
-        String comboBoxValue = comboBox.getValue();
-        try {
-            JsonObject jsonObject = new JsonParser().parse(new String(Files.readAllBytes(Paths.get("src/main/resources/assets/electrum.json")))).getAsJsonObject();
+        String selectedValue = comboBox.getValue();
+        ArrayList<ElectrumServers.Electrum> electrums = electrumServers.getServers().get(selectedValue);
 
-            JsonArray ipList = jsonObject.getAsJsonArray(comboBoxValue);
-            ArrayList<String> coinIPList = new ArrayList<>();
+        //TODO
+        String response = barterRPC.enableElectrum(selectedValue, electrums.get(0).getIpaddr(),electrums.get(0).getPort());
 
-            for (JsonElement j : ipList) {
-
-                Set<String> ip = j.getAsJsonObject().keySet();
-                coinIPList.addAll(ip);
-            }
-
+        if (!response.contains("error")) {
             activeCoinsListView.setItems(observableList);
             comboBox.getItems().remove(comboBox.getValue());
 
-            // Select Electrum button as default
-            toggleGroup.selectToggle(toggleGroup.getToggles().get(0));
-
-            String response = barterRPC.enableElectrum(comboBoxValue, coinIPList.get(0),ipList.get(0).getAsJsonObject().get(coinIPList.get(0)).getAsString());
-
-            observableList.add(comboBoxValue);
-        } catch (IOException e) {
-            e.printStackTrace();
+            observableList.add(selectedValue);
+            comboBox.valueProperty().set(null);
+        } else {
+            System.err.println("Something went wrong: " + response);
         }
-        comboBox.valueProperty().set(null);
     }
 
     public void disableCoin(ActionEvent actionEvent) {
-        if (activeCoinsListView.getSelectionModel().getSelectedItem() != null) {
-            System.out.println("is niet null");
+        String selectedValue = activeCoinsListView.getSelectionModel().getSelectedItem();
+        if (selectedValue != null) {
+            System.out.println("a coin is selected from active coins listview");
+
+            //put selected coin back in combobox and sort combobox
             comboBox.getItems().add(activeCoinsListView.getSelectionModel().getSelectedItem());
             Collections.sort(comboBox.getItems());
+
+            // disable electrum:
+            // send empty ip address for selected coin to disable.
+            // port is still needed (probably to determine which electrum to enable.
+            // TODO what to do when different ports are used? remember which Electrum is active.
+            System.out.println(barterRPC.enableElectrum(selectedValue, "", electrumServers.getServers().get(selectedValue).get(0).getPort()));
+
+            //remove the coin from the active coins listview:
             activeCoinsListView.getItems().remove(activeCoinsListView.getSelectionModel().getSelectedItem());
         }
     }
 
     private WritableImage createQRImage(String address) throws WriterException {
+        if (address == null || address.isEmpty())
+            return null;
         MatrixToImageConfig imageConfig = new MatrixToImageConfig(MatrixToImageConfig.BLACK,0x009E9E9E);
         BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(new QRCodeWriter().encode(address,BarcodeFormat.QR_CODE,230,230),imageConfig);
         return SwingFXUtils.toFXImage(bufferedImage,null);

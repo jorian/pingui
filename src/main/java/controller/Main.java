@@ -11,7 +11,6 @@ import model.CoinsList;
 import model.ElectrumServers;
 
 import java.io.IOException;
-import java.util.Set;
 
 public class Main {
 
@@ -128,7 +127,11 @@ public class Main {
         coinsController.loadElectrumEnabledCoins();
     }
 
-    Set<String> getElectrumEnabledCoins() {
-        return electrumServers.getCoinsWithElectrumServers();
+//    Set<String> getElectrumEnabledCoins() {
+//        return electrumServers.getCoinsWithElectrumServers();
+//    }
+
+    ElectrumServers getElectrumServers() {
+        return electrumServers;
     }
 }

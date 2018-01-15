@@ -6,10 +6,7 @@ import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class ElectrumServers {
     private HashMap<String, ArrayList<Electrum>> servers;
@@ -51,8 +48,16 @@ public class ElectrumServers {
         return new TreeSet<>(this.coinsWithElectrumServers);
     }
 
+    public Map<String, ArrayList<Electrum>> getServers() {
+        return new HashMap<>(servers);
+    }
 
-    class Electrum {
+//    public ElectrumServers getElectrumServers() {
+//        return this;
+//    }
+
+
+    public class Electrum {
         String ipaddr;
 
         String port;

@@ -25,7 +25,8 @@
 
         <Label GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" text="Please enter your passphrase below:"/>
 
-        <TextField fx:id="passphraseField" GridPane.columnIndex="1" GridPane.rowIndex="1" minWidth="400" GridPane.halignment="CENTER"/>
+
+        <PasswordField fx:id="passphraseField" GridPane.columnIndex="1" GridPane.rowIndex="1" minWidth="400" GridPane.halignment="CENTER"/>
 
         <Button GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP" text="Login" onAction="#login"/>
 
