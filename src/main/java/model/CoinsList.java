@@ -9,6 +9,17 @@ public class CoinsList {
         coins = new ArrayList<>();
     }
 
+    public Coin getCoin(String name) {
+        if (coins != null) {
+            for (Coin coin : coins) {
+                if (coin.getCoin().equals(name)) {
+                    return coin;
+                }
+            }
+        }
+        return null;
+    }
+
     public void addToCoinsList(Coin c) {
         this.coins.add(c);
     }

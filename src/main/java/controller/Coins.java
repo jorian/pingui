@@ -94,8 +94,9 @@ public class Coins {
         // Create QR code:
         activeCoinsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newvalue) -> {
             try {
+                String smartAddress = mainController.getCoinsList().getCoin(newvalue).getSmartaddress();
                 qrcodeview.setPreserveRatio(true);
-                qrcodeview.setImage(createQRImage(newvalue));
+                qrcodeview.setImage(createQRImage(smartAddress));
             } catch (WriterException e) {
                 e.printStackTrace();
             }
