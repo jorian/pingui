@@ -14,10 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
@@ -45,6 +42,9 @@ public class Coins {
 
     private ObservableList<String> observableList;
     private ObservableList<String> comboBoxCoinsListener;
+
+    private Set<String> coinsWithElectrumServers;
+
     private Main mainController;
 
 
@@ -60,12 +60,46 @@ public class Coins {
         }
     }
 
+    public void loadElectrumEnabledCoins() {
+
+        coinsWithElectrumServers = mainController.getElectrumEnabledCoins();
+    /*
+     Check if Electrum is possible on selected coin and disable togglebutton if not:
+     - disable Electrum radio button
+     - set Native selected
+     - set Electrum selected if Electrum is possible (Electrum should always be default)
+
+     NOTE: we can only check if Native is installed upon enabling the coin in native. That will return
+     a response and show us whether the coin is Natively installed.
+      */
+        comboBox.getSelectionModel().selectedItemProperty().addListener(observable -> {
+            String selectedValue = comboBox.getSelectionModel().getSelectedItem();
+            if (selectedValue != null && !selectedValue.isEmpty()) {
+                ((ToggleButton) toggleGroup.getToggles().get(0)).setDisable(!coinsWithElectrumServers.contains(selectedValue));
+                toggleGroup.getToggles().get(1).setSelected(!coinsWithElectrumServers.contains(selectedValue));
+                toggleGroup.getToggles().get(0).setSelected(coinsWithElectrumServers.contains(selectedValue));
+            } else {
+                ((ToggleButton) toggleGroup.getToggles().get(0)).setDisable(false);
+                toggleGroup.getToggles().get(0).setSelected(true);
+            }
+        });
+    }
+
     public void initialize() {
         observableList = FXCollections.observableArrayList();
         comboBoxCoinsListener = FXCollections.observableArrayList();
 
         comboBox.setEditable(true);
 
+        // Check if Electrum is possible on selected coin and disable togglebutton if not:
+//        comboBox.getSelectionModel().selectedItemProperty().addListener(observable -> {
+//            if (coinsWithElectrumServers.contains(comboBox.getSelectionModel().getSelectedItem())) {
+//                System.out.println(observable.toString());
+//            }
+////            System.out.println(comboBox.getSelectionModel().getSelectedItem());
+//        });
+
+        // Create QR code:
         activeCoinsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newvalue) -> {
             try {
                 qrcodeview.setPreserveRatio(true);
@@ -105,6 +139,7 @@ public class Coins {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        comboBox.valueProperty().set(null);
     }
 
     public void disableCoin(ActionEvent actionEvent) {

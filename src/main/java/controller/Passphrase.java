@@ -14,7 +14,10 @@ import javafx.scene.layout.GridPane;
 import model.CoinsList;
 import utils.SessionStorage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
@@ -62,7 +65,7 @@ public class Passphrase {
         } else {
             sessionStorage.setPassphrase(passphraseField.getText());
 
-            // TODO
+//             TODO
             Task taskMarketMaker = new Task() {
                 @Override
                 protected Object call() throws Exception {
@@ -127,6 +130,7 @@ public class Passphrase {
                     System.out.println(coin.toString());
                 });
                 mainController.loadCoinsFile();
+                mainController.loadElectrumEnabledCoins();
                 barterRPC.setUserpass(_userpass);
             }
         }

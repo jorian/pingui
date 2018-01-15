@@ -11,6 +11,7 @@ import model.CoinsList;
 import model.ElectrumServers;
 
 import java.io.IOException;
+import java.util.Set;
 
 public class Main {
 
@@ -38,10 +39,9 @@ public class Main {
     private Parent tradeHistory;
 
     public void initialize() {
-        electrumServers = new ElectrumServers();
-        coinsList = new CoinsList();
-
         fxmlSetup();
+
+
 
         menuToggle.getToggles().forEach(toggle -> {
             ((RadioButton) toggle).getStyleClass().remove("radio-button");
@@ -72,6 +72,10 @@ public class Main {
         });
 
         rootPane.setCenter(passphrase);
+
+        electrumServers = new ElectrumServers();
+        coinsList = new CoinsList();
+
     }
 
     private void fxmlSetup() {
@@ -118,5 +122,13 @@ public class Main {
 
     CoinsList getCoinsList() {
         return coinsList;
+    }
+
+    void loadElectrumEnabledCoins() {
+        coinsController.loadElectrumEnabledCoins();
+    }
+
+    Set<String> getElectrumEnabledCoins() {
+        return electrumServers.getCoinsWithElectrumServers();
     }
 }

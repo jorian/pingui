@@ -9,10 +9,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class ElectrumServers {
     private HashMap<String, ArrayList<Electrum>> servers;
-    private Set<String> electrumEnabledCoins;
+    private Set<String> coinsWithElectrumServers;
     private JsonObject electrumsFile;
 
 
@@ -25,11 +26,11 @@ public class ElectrumServers {
             System.err.println("electrum.json not found");
         }
 
-        electrumEnabledCoins = electrumsFile.keySet();
+        coinsWithElectrumServers = electrumsFile.keySet();
 
         // TODO needs solution.
         // Retrieve servers from difficult to parse JSON:
-        electrumEnabledCoins.forEach((coinName -> {
+        coinsWithElectrumServers.forEach((coinName -> {
             ArrayList<Electrum> electrums = new ArrayList<>(2);
             (electrumsFile.get(coinName).getAsJsonArray()).forEach(jsonElement -> {
                 Set<String> keySet = jsonElement.getAsJsonObject().keySet();
@@ -45,6 +46,11 @@ public class ElectrumServers {
                 System.out.println(electrum.toString()));
 
     }
+
+    public Set<String> getCoinsWithElectrumServers() {
+        return new TreeSet<>(this.coinsWithElectrumServers);
+    }
+
 
     class Electrum {
         String ipaddr;
