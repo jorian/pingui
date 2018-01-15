@@ -19,9 +19,7 @@ import model.ElectrumServers;
 import utils.BarterRPC;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
+import java.util.*;
 
 import static utils.BarterRPC.barterRPC;
 
@@ -39,6 +37,7 @@ public class Coins {
 
     private ElectrumServers electrumServers;
     private Set<String> coinsWithElectrumServers;
+    private Map<String,ElectrumServers.Electrum> electrumsCurrentlyActive;
 
     private Main mainController;
 
@@ -88,6 +87,7 @@ public class Coins {
     public void initialize() {
         observableList = FXCollections.observableArrayList();
         comboBoxCoinsListener = FXCollections.observableArrayList();
+        electrumsCurrentlyActive = new HashMap<>();
 
         comboBox.setEditable(true);
 
@@ -115,34 +115,58 @@ public class Coins {
             } else if (((ToggleButton) toggleGroup.getSelectedToggle()).getId().endsWith("Electrum")) {
                 ArrayList<ElectrumServers.Electrum> electrums = electrumServers.getServers().get(selectedValue);
 
-                //TODO handle multiple electrums
+                // Loop through all available electrums for selected coin
+                for (int i = 0; i < electrums.size(); i++) {
+                    System.out.println("electrum try: " + (i+1));
+                    response = barterRPC.enableElectrum(selectedValue, electrums.get(i).getIpaddr(),electrums.get(i).getPort());
+                    if (!response.contains("error")) {
+
+                        // Add electrum to currenly active electrums map:
+                        electrumsCurrentlyActive.put(selectedValue, electrums.get(i));
+                        break;
+                    }
+                }
+                if (response.contains("error"))
+                    System.err.println("couldnt connect to any of the provided electrum servers.");
+
                 //TODO store activated Electrum for proper disabling
-                response = barterRPC.enableElectrum(selectedValue, electrums.get(0).getIpaddr(),electrums.get(0).getPort());
             }
             if (response.contains("error") || response.isEmpty()) {
                 System.err.println("Something went wrong: " + response);
             } else {
+                // add enabled coin to active coins list:
                 activeCoinsListView.setItems(observableList);
-                comboBox.getItems().remove(comboBox.getValue());
-
                 observableList.add(selectedValue);
+
+                // remove the enabled coin from combobox:
+                comboBox.getItems().remove(comboBox.getValue());
                 comboBox.valueProperty().set(null);
+
+                // add enabled coin
             }
         }
     }
 
+    // Electrum disabling:
     public void disableCoin(ActionEvent actionEvent) {
         String selectedValue = activeCoinsListView.getSelectionModel().getSelectedItem();
-        if (selectedValue != null) {
+
+        if (selectedValue != null && electrumsCurrentlyActive.containsKey(selectedValue)) {
             System.out.println("a coin is selected from active coins listview");
 
             //put selected coin back in combobox and sort combobox
             comboBox.getItems().add(activeCoinsListView.getSelectionModel().getSelectedItem());
             Collections.sort(comboBox.getItems());
 
-            // TODO what to do when different ports are used? remember which Electrum is active.
-            System.out.println(barterRPC.enableElectrum(selectedValue, "", electrumServers.getServers().get(selectedValue).get(0).getPort()));
+            if (electrumsCurrentlyActive.containsKey(selectedValue)) {
+                // TODO what to do when different ports are used? remember which Electrum is active.
+                String response = barterRPC.enableElectrum(selectedValue, "", electrumsCurrentlyActive.get(selectedValue).getPort());
 
+                // if disabling the coin went ok, remove coin from electrumsCurrentlyActive
+                if (!response.contains("error")) {
+                    electrumsCurrentlyActive.remove(selectedValue);
+                }
+            }
             //remove the coin from the active coins listview:
             activeCoinsListView.getItems().remove(activeCoinsListView.getSelectionModel().getSelectedItem());
         }
