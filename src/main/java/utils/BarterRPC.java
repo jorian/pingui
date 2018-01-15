@@ -27,6 +27,17 @@ public class BarterRPC {
         prefs = Preferences.userRoot();
     }
 
+    public String enableNative(String coin) {
+        String postJSONData = "{" +
+                "\"userpass\":\""+prefs.get("userpass", "")+"\"," +
+                "\"method\":\"enable\"," +
+                "\"coin\":\"" + coin + "\"}";
+
+        System.out.println("enableNative: ");
+
+        return postRequest(postJSONData);
+    }
+
     public String enableElectrum(String coin, String ipaddr, String port) {
 
         String postJSONData = "{" +

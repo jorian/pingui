@@ -105,21 +105,28 @@ public class Coins {
     }
 
     public void enableCoin(ActionEvent actionEvent) {
+        String response = "";
+        String selectedValue = comboBox.getSelectionModel().getSelectedItem();
+        if (selectedValue != null && !selectedValue.isEmpty()) {
+            if (((ToggleButton) toggleGroup.getSelectedToggle()).getId().endsWith("Native")) {
+                System.out.println("Native is clicked");
+                response = barterRPC.enableNative(selectedValue);
+            } else if (((ToggleButton) toggleGroup.getSelectedToggle()).getId().endsWith("Electrum")) {
+                ArrayList<ElectrumServers.Electrum> electrums = electrumServers.getServers().get(selectedValue);
 
-        String selectedValue = comboBox.getValue();
-        ArrayList<ElectrumServers.Electrum> electrums = electrumServers.getServers().get(selectedValue);
+                //TODO handle multiple electrums
+                //TODO store activated Electrum for proper disabling
+                response = barterRPC.enableElectrum(selectedValue, electrums.get(0).getIpaddr(),electrums.get(0).getPort());
+            }
+            if (response.contains("error") || response.isEmpty()) {
+                System.err.println("Something went wrong: " + response);
+            } else {
+                activeCoinsListView.setItems(observableList);
+                comboBox.getItems().remove(comboBox.getValue());
 
-        //TODO
-        String response = barterRPC.enableElectrum(selectedValue, electrums.get(0).getIpaddr(),electrums.get(0).getPort());
-
-        if (!response.contains("error")) {
-            activeCoinsListView.setItems(observableList);
-            comboBox.getItems().remove(comboBox.getValue());
-
-            observableList.add(selectedValue);
-            comboBox.valueProperty().set(null);
-        } else {
-            System.err.println("Something went wrong: " + response);
+                observableList.add(selectedValue);
+                comboBox.valueProperty().set(null);
+            }
         }
     }
 
@@ -132,9 +139,6 @@ public class Coins {
             comboBox.getItems().add(activeCoinsListView.getSelectionModel().getSelectedItem());
             Collections.sort(comboBox.getItems());
 
-            // disable electrum:
-            // send empty ip address for selected coin to disable.
-            // port is still needed (probably to determine which electrum to enable.
             // TODO what to do when different ports are used? remember which Electrum is active.
             System.out.println(barterRPC.enableElectrum(selectedValue, "", electrumServers.getServers().get(selectedValue).get(0).getPort()));
 
